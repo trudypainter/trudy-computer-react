@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/trudy-computer-react/static/css/main.abd64e84.css",
+    "main.js": "/trudy-computer-react/static/js/main.b9a1b124.js",
+    "index.html": "/trudy-computer-react/index.html",
+    "main.abd64e84.css.map": "/trudy-computer-react/static/css/main.abd64e84.css.map",
+    "main.b9a1b124.js.map": "/trudy-computer-react/static/js/main.b9a1b124.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abd64e84.css",
+    "static/js/main.b9a1b124.js"
+  ]
+}
