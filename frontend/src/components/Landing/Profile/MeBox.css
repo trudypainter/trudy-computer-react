@@ -2,7 +2,7 @@
   width: 33%;
   border-right: 1px solid black;
   align-items: center;
-  background-color: black;
+  background-color: yellow;
   color: white;
 }
 
@@ -29,6 +29,7 @@
 }
 
 img {
+  visibility: hidden;
   height: 100%;
   width: 100%;
   display: block;

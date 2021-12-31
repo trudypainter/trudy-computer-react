@@ -1,7 +1,7 @@
 import "./ProjectItem.css";
 
-const ProjectItem = () => {
-  return <div className="projectItem">test</div>;
+const ProjectItem = (props) => {
+  return <div className="projectItem">{props.project}</div>;
 };
 
 export default ProjectItem;
