@@ -1,0 +1,95 @@
+.linkChart {
+  position: relative;
+  width: 33%;
+  border-right: 1px solid black;
+}
+
+.topBar {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+
+  height: calc(100% - 45px);
+  width: 10px;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%),
+    #000000;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  transform: rotate(180deg);
+}
+
+.leftBar {
+  position: absolute;
+  top: 29px;
+  left: 30px;
+
+  height: 10px;
+  width: calc(100% - 45px);
+  background: linear-gradient(-90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%),
+    #000000;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  /* transform: rotate(90deg); */
+}
+
+.essential {
+  position: absolute;
+  top: 12px;
+  left: 30px;
+}
+.peripheral {
+  position: absolute;
+  top: 12px;
+  left: calc(100% - 86px);
+}
+.professional {
+  position: absolute;
+  top: 64px;
+  left: -22px;
+  transform: rotate(-90deg);
+}
+.personal {
+  position: absolute;
+  top: calc(100% - 54px);
+  left: -10px;
+  transform: rotate(-90deg);
+}
+
+.inside_graph {
+  color: black;
+  text-decoration: none;
+}
+.inside_graph:hover {
+  cursor: pointer;
+}
+
+.resume {
+  position: absolute;
+  top: 46px;
+  left: calc(30%);
+}
+.arena {
+  position: absolute;
+  top: calc(50%);
+  left: 52px;
+}
+.vsco {
+  position: absolute;
+  top: calc(100% - 40px);
+  left: 88px;
+}
+.spotify {
+  position: absolute;
+  top: calc(100% - 64px);
+  left: 58px;
+}
+.github {
+  position: absolute;
+  top: calc(25% + 20px);
+  left: 52px;
+}
+.linkedin {
+  position: absolute;
+  top: 52px;
+  left: calc(100% - 106px);
+}

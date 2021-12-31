@@ -1,0 +1,9 @@
+p {
+  padding: 0px 10px;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: underline;
+  color: black;
+}

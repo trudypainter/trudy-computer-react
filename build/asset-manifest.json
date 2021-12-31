@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/trudy-computer-react/static/css/main.abd64e84.css",
-    "main.js": "/trudy-computer-react/static/js/main.b9a1b124.js",
+    "main.css": "/trudy-computer-react/static/css/main.5a52ee47.css",
+    "main.js": "/trudy-computer-react/static/js/main.fc9cb131.js",
     "index.html": "/trudy-computer-react/index.html",
-    "main.abd64e84.css.map": "/trudy-computer-react/static/css/main.abd64e84.css.map",
-    "main.b9a1b124.js.map": "/trudy-computer-react/static/js/main.b9a1b124.js.map"
+    "main.5a52ee47.css.map": "/trudy-computer-react/static/css/main.5a52ee47.css.map",
+    "main.fc9cb131.js.map": "/trudy-computer-react/static/js/main.fc9cb131.js.map"
   },
   "entrypoints": [
-    "static/css/main.abd64e84.css",
-    "static/js/main.b9a1b124.js"
+    "static/css/main.5a52ee47.css",
+    "static/js/main.fc9cb131.js"
   ]
 }

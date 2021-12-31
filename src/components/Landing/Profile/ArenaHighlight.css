@@ -1,0 +1,29 @@
+.arenaHighlight {
+  width: 33%;
+}
+.arenaTitle {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.channelLink {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+.channel {
+  border: 1px solid black;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 6px;
+  padding-bottom: 8px;
+}
+
+.channel:hover {
+  background-color: yellow;
+}
