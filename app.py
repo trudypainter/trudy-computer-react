@@ -8,14 +8,7 @@ from dateutil import parser
 import psycopg2
 import datetime
 
-app = Flask(__name__, static_folder='build', static_url_path='/')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://gyapnprijuucxd:b5d546034ef4baa6cbe6c08b8ac38f5a37ecda76e60679de14ad2b0f72e6d440@ec2-3-89-214-80.compute-1.amazonaws.com:5432/d3tt7l03ba5bep'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-db = SQLAlchemy(app)
-
-#########################
-#  ⭐️ BACKEND   #
-#########################
+app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 
 
 ##################
