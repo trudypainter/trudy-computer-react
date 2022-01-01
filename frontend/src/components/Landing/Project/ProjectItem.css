@@ -5,17 +5,22 @@
   padding: 10px;
 }
 
-.thumbnail {
-  height: 100px;
-}
-
 .subtitle {
   font-style: italic;
 }
 
+.thumbnail {
+  margin: 10px;
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 30px;
+}
+
 .thumbImg {
   position: relative;
-  height: 100px;
+  width: 100%;
+  height: calc(width);
+  border: 1px solid black;
 }
 
 .tags {

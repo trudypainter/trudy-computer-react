@@ -8,9 +8,11 @@ const ProjectItem = (props) => {
         {props.project.year + ", " + props.project.location}
       </div>
       <div className="description">{props.project.description}</div>
+
       <div className="thumbnail">
         <img className="thumbImg" src={props.project.image}></img>
       </div>
+
       <div className="tags">
         {props.project.tags.map((tag) => (
           <span>{tag} </span>
