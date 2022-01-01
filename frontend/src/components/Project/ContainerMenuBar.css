@@ -1,0 +1,35 @@
+.containerMenuBar {
+  border: 1px solid black;
+  height: 40px;
+  padding: 10px;
+  background-color: yellow;
+  position: inherit;
+}
+
+.exitButton {
+  position: relative;
+  width: initial;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  top: 5px;
+  left: 5px;
+  border: 1px solid black;
+  background-color: white;
+  z-index: 3;
+}
+.exitButton:hover {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+.menuTitle {
+  position: relative;
+  top: -27.5px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}

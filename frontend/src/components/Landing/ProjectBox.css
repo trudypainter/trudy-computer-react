@@ -1,7 +1,6 @@
 .projectBox {
   margin: auto;
   margin-top: 20px;
-  width: 80%;
   padding: 0px;
   border: 1px solid black;
   background-color: white;
@@ -9,5 +8,13 @@
   display: flex;
   flex-wrap: wrap;
 
-  min-width: 700px;
+  max-width: 800px;
+}
+
+@media only screen and (max-width: 810px) {
+  /* For mobile phones: */
+  .projectBox {
+    width: initial;
+    margin: 10px;
+  }
 }

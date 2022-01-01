@@ -12,3 +12,4 @@ urllib3==1.26.6
 Werkzeug==2.0.1
 flask-sqlalchemy==2.5.1
 psycopg2==2.9.2
+markdown==3.3.6

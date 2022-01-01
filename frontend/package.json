@@ -49,5 +49,7 @@
   "node": {
     "fs": "empty"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "html-react-parser": "^1.4.4"
+  }
 }

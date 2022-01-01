@@ -6,7 +6,7 @@ import json
 from urllib.parse import urlencode
 from dateutil import parser
 import psycopg2
-import datetime
+import markdown
 import os
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
@@ -27,9 +27,43 @@ def landing():
 
     return {"data": landing_list}
 
+@app.route('/api/project_url_list', methods=["GET"])
+def project_list():
+    folders = os.listdir("projects")
+    
+    return {"data": folders}
+
 @app.route('/api/<project>', methods=["GET"])
 def project(project):
-    return "project from api"
+    print("🟩 ", project)
+    items = os.listdir("projects/" + project)
+
+    # get markdown file
+    markdown_filename = ""
+    for item in items:
+        print(item[-2:])
+        if item[-2:] == "md":
+            print("🌐")
+            markdown_filename = item
+
+    # read markdown text
+    with open("projects/"+project+"/" + markdown_filename, 'r') as f:
+        text = f.read()
+        html = markdown.markdown(text)    
+    print(html)
+
+    # get project title
+    f = open("projects/"+project+"/info.json")
+    data = json.load(f)
+    project_title = data['title']
+
+    response = {
+        "title": project_title,
+        "markdown": html,
+    }
+    print("🟩🟨")
+    print(response)
+    return response
 
 
 ##################

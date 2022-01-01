@@ -1,7 +1,8 @@
 {
-  "title": "Real Talk Radio",
+  "title": "REAL TALK RADIO",
   "year": 2020,
-  "locaiton": "MIT Media Lab",
+  "location": "MIT Media Lab",
   "image": "[IMAGE ADDRESS]",
+  "description": "Continuous audio stream of spoken interludes in Black music.",
   "tags": ["Fullstack", "Archive", "Research"]
 }

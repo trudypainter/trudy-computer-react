@@ -93,3 +93,11 @@
   top: 52px;
   left: calc(100% - 106px);
 }
+
+@media only screen and (max-width: 720px) {
+  /* For mobile phones: */
+  .linkChart {
+    width: 49%;
+    border-right: none;
+  }
+}

@@ -1,7 +1,8 @@
 {
-  "title": "Spotify Monster",
+  "title": "SPOTIFY MONSTER",
   "year": 2021,
-  "locaiton": "6.08 Embedded Systems Class Final Project",
+  "location": "6.08 Embedded Systems Class Final Project",
   "image": "[IMAGE ADDRESS]",
+  "description": "Social netowrk of Spotify Tamagotchi on Arduino",
   "tags": ["Fullstack", "Arduino"]
 }

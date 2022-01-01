@@ -4,6 +4,7 @@
   align-items: center;
   background-color: yellow;
   color: white;
+  height: 232px;
 }
 
 .title {
@@ -28,7 +29,7 @@
   left: 0px;
 }
 
-img {
+.meImg {
   visibility: hidden;
   height: 100%;
   width: 100%;
@@ -40,4 +41,11 @@ img {
   width: 100%;
 
   position: absolute;
+}
+
+@media only screen and (max-width: 720px) {
+  /* For mobile phones: */
+  .meBox {
+    width: 50%;
+  }
 }
