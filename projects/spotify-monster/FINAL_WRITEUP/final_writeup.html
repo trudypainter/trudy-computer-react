@@ -1,0 +1,452 @@
+<meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/apidoc.css">
+
+                          **Spotify Monsters**
+Team:
+- Soomin Chun
+- Jessica Lee
+- Andrew Stoddard
+- Trudy Painter
+- Brady Sullivan
+
+# 🔴 Intro 
+
+“Spotify Monsters” is Tamagotchi for your Spotify listening history. 
+Based on the songs that you have recently listened to, you will shape your Spotify Monster. 
+Listening to happier or more danceable songs will alter your monster’s personality. 
+Listening to certain genres will change your monster's color. And, the more songs you listen to, 
+the larger your monster will grow.
+
+# 🟠 Video Demo
+
+![Demo](https://www.youtube.com/watch?v=OLjwTaYY8Ik)
+
+# 🟡 System Design
+
+![General Overview](images/overview.jpeg)
+
+## Monster Design
+
+The monster has 5 features influenced by listening patterns.
+
+**1. Body color ** 
+
+The monster's body color corresponds to the user's top listened to genre. 
+
+* Pop: pink
+* Country: orange
+- Rap: purple
+- Instrumental: yellow
+- Tecnho: green
+- Rock/Alt: red
+
+**2. Mood **
+
+Based off a user's listened to songs' valence, energy, and danceability, we compute a mood score. 
+This then correlates to 3 different facial expressions for the monster:
+ [0] sad, [1] neutral, or [2] happy.
+
+**3. Age Stage **
+
+When a user first starts listening, their monster is a baby. As they listen to more songs, 
+their monster will grow legs, arms, height, and trophy accessories. 
+After 50 songs, the monster grows legs. After 100 songs, the monster grows arms. 
+After 150 songs, the monster can start growing in height.
+
+**4. Height **
+
+We didn't want to put a ceiling on how much the monster could develop. 
+So, after a user listens to 100 songs, they earn an extra pixel of height.
+
+**5. Trophy Accessories **
+
+After listening to 500 songs in a certain genre, a user can unlock a monster accessory for that genre.
+
+* Pop: microphone
+* Country: cowboy hat
+- Rap: sneakers
+- Instrumental: glasses
+- Tecnho: headphones
+- Rock/Alt: guitar
+
+![Monster with all accessories](images/example_trophies.jpeg)
+
+![Monster Skeleton Outline](images/monsteroverview.jpeg)
+
+## Web Interface
+
+See the web interface <a href=http://608dev-2.net/sandbox/sc/team01/web/me.py?user=trudypaintet">here.</a>
+
+![Example user page](images/web_example.jpeg)
+
+There are three main components to the web interface. The "me" page, the "friends" page and the "all users" page. From the "all users" page, you can see all the users and click on their page. Once on their page, you are still looking at their page from your viewpoint, so the site will tell you if you are friends with the user or not.
+
+If you are not friends, there will be a button to become friends. You can't see much else about the user because you aren't friends.
+
+If you are friends, you will be able to see the time you have been friends since, compatibility score with them, their listening trophies, recent listening, top artists, and recommended tracks taking in both of your listening into account. The trophy badges were made on Illustrator. The compatibility and recommender algorithms are described more below.
+
+![All trophy badges possible.](images/trophies.jpeg)
+
+
+You will see that the "friends" page looks exactly like the "all users" but only displays your friends.
+
+The "me" page also looks quite similar to other "user" pages, except there is no compatibility score and the recommendations are completely personalized.
+
+### SVG Displays
+
+The SVGs are created by the makeSVG script, which pulls data from our user data database to find the users' top genre, recent mood, and the number of songs. Using these metrics we generate an SVG the same way the Monster class renders the monster on the ESP32.
+
+These SVGs are saved on the server, and whenver the user icon is visible, it will render these saved SVGs.
+
+### Compatibility Algorithm
+
+We created a compatibility algorithm that takes two users and compares their music. This feature is used when two users are near each other and they can see their Monsters interact on the tft screen and react to their compatibility scores. Half of the compatibility score comes from comparing genres plus a score booster from same tracks or artists, and the other half comes from comparing the vectors of the user’s danceability, energy, and valence scores of the songs. It pulls from the user_data table now to get recent 5 songs, top 5 songs, and top 5 artists as well as top genre.
+
+First, we obtain the recent songs for both users from the spotify db. Then, we iterate through all the genres and count them and put them in a dictionary. We compare the total number of overlapping genres, where duplicates are individually counted, over the total number of genres. Finally, we add an additional multiplier weighted with tanh because if users have the same tracks or artists, that is a special thing, so I take the difference of 1 - the similarity of genres and decrease that difference by a multiplier given by the number of overlapping songs. 
+
+The second half of the score comes from a cosine similarity of the audio features. Finally, the whole score is passed through a sigmoid function shown below to make differences in scores more stark.
+
+![Compatibility sigmoid function weighting](images/sigmoid.jpeg)
+
+
+
+### Recommender Algorithm 
+
+We used the Spotify Recommended Tracks API to create a list of recommended songs. This feature is displayed in the user's homepage where we find the ids of their top artist and top track and send a get request to the Spotify API. This feature is also displayed in the friend page, where we use the top artist and top track of both the logged in user and the friend they are viewing to create a playlist of recommended songs both users can listen to together.
+
+
+
+## ESP32
+
+### User Interaction
+Once a user has given permission to access their Spotify listening history on the web, they are able to generate and interact with their very own monster on the ESP32 and LCD. There are three modes of interaction with the monster that can access a wide array of actions that the monster performs.
+The user can press the buttons, physically tilt the breadboard, and speak commands to be performed. With these inputs, the user is able to change the state of the monster which will in turn perform various actions. 
+
+A state machine diagram and full description are below:
+
+![User Interface State Machine Diagram](images/userstatediagram.jpeg)
+
+Monster State Machine:
+* **MONST** (short for monster) is the base state. In this state, the monster appears still on the screen and the RGB LED is a solid color matching that of the monster. The monster accepts button and angle inputs in this state:
+    * If tilted clockwise above the angle threshold, the monster moves to the right unless it is at movement boundary.
+    * If tilted counterclockwise above the angle threshold, the monster moves to the left unless it is at the movement boundary.
+    * A short press of button 1 enters the **WAIT** state.
+    * A long press of button 1 enters the **PROX** state.
+    * A short press of button 2 enters the **STATS** state.
+    * A long press of button 2 enters the **AUDIO** state.
+* **STATS** is the statistics screen state. The user's statistics appear on the screen in this state. 
+    * A short press of button 1 toggles which statistic is highlighted in the menu and featured on-screen.
+    * A short press of button 2 returns to the **MONST** state.
+* **AUDIO** is the audio recording state. In this state, the microphone is active and picks up user speech for 2 seconds. This data is then sent to the Google speech recognition API and it's results determine the next state:
+    * If equal to the **WORD1** word (which is "dance"), enter the **WORD1** state.
+    * If equal to the **WORD2** word (which is "update"), enter the **WORD2** state.
+    * If not equal to either the **WORD1** or **WORD2** words, return to the **MONST** state.
+* **PROX** is by far the most involved state and is detailed in the Proximity Algorithm section below. When entered, a long sequence of actions occur: 
+        1. The RGB LED PWM changes to a visible flash to indicate it is searching for other users in proximity. 
+        2. The state first requests it's location via POST request to the Google geolocation API. 
+        3. It POST's this location data to the team server. It is expected another user is also performing the **PROX** action on their board simultaneously.
+        4. The monster looks around for 2.5 seconds. This serves as a buffer to account for differences between the two users signals and requests if attempting to interact with each other.
+        5. The user POST's it's location again, this time expecting another user that is in proximity as well as their compatibility to be returned. If no other user is in proximity, the monster returns to the **MONST** state.
+        6. The second monster that exists on the user's board is updated to match the appearance of the user that is in proximity.
+        7. The second monster enters the screen, the two monsters perform a dance based on their compatibility score, and the second monster exits the screen.
+        8. The first monster then returns to the **MONST** state.
+* **WAIT** is an intermediate state:
+    * If a short press of button 1 occurs in less than 0.5 seconds after **WAIT** is entered, the **TICKLE** state is entered.
+    * If no short press occurs, enter the **BLINK** state.
+* **BLINK** shows the monster blinking.
+    * The monster automatically returns to the **MONST** state after blinking.
+* **TICKLE** is a short monster action representing the monster reacting to being "tickled".
+    * The monster automatically returns to the **MONST** state after being tickled.
+* **WORD1** is "dance". When entered, the monster looks around and performs a jump dance.
+    * The monster automatically returns to the **MONST** state after dancing.
+* **WORD2** is "update". When entered, the team server is called via an update function and the monster's appearance is updated to reflect any changes in listening history or statistics.
+    * The monster automatically returns to the **MONST** state after updating.
+
+*The state machine does not accept any input where both buttons are pressed at the same time.
+
+**The actions of the monster were designed to be blocking. This is intentional to ensure features of the monster would not be overwritten by "competing" actions.
+
+### Proximity Algorithm
+
+We use distance to have interactions between users on the ESP32. To determine proximity, the ESP32 sends a request to the Google API. 
+After getting the response from the Google API, it sends the longitude and latitude coordinates to the proximity script on the server. The server stores these lat/lon coordinates in a database, 
+and queries the database for locations submitted in the past ten seconds. 
+
+Then, it checks if those locations are within 100 meters of each other by calculating the Haversine distance between the user's location and all recently submitted locations. 
+Finally, if there are multiple users found, the closest one is returned to the ESP32. 
+
+Because the location proximity checks if other users are in the database, if two users are trying to find each other, the first user to query the database will not find the second user. 
+Therefore, we have implemented a scanning period where users check the database twice to avoid this issue.
+
+### Hardware
+#### Parts List
+* ESP32 Dev Kit
+* ST7735 1.8" TFT Display
+* MPU6050 Inertial Measurement Unit
+* MAX9814 Microphone 
+* RGB LED
+* Breadboard
+* 2 Square Button Switches
+
+![ESP32 Pin Setup](images/pinsetup.jpeg)
+
+# 🔵 Python Scripts and APIs
+
+## Spotify Authorization and API Data Flow
+
+![Spotify Auth Flow](images/auth_flow.jpeg)
+
+1. User visits authorize.py (http://608dev-2.net/sandbox/sc/team01/authorize.py)
+
+2. Spotify prompts the user to sign in and authorize Spotify Monsters
+
+3. Once authorized, the access code is exchanged for an access token and a refresh key (a)
+
+    a. The access token is used to retrieve the username of the new user (b)
+
+    b. The user name and refresh token is stored in table (c) of the Spotify.db database
+
+    c. You can see the refresh tokens here: http://608dev-2.net/sandbox/sc/team01/read_tokens.py
+
+4. The page is then redirected to the get_data.py script (http://608dev-2.net/sandbox/sc/team01/get_data.py?user={name})
+
+    a. The get_data script retrieves the refresh token from table (c) and exchanges it for an access token with spotify (a)
+
+    b. With the access token, the user’s most recent 25 songs are pulled from the Spotify API (b)
+
+    c. Info about each of the songs not already in the database is pulled from the Spotify API (artists, metrics, genres) (b)
+
+    d. Table (d) is updated with new songs and the number of new songs added is returned
+
+5. The page is finally directed to user_data.py where general stats are compilied
+
+    a. Table (e) is updated with new listening data stats per user
+
+**Every 30 minutes, steps 4 and 5 are repeated automatically for every user using a Cron job so music history is seamlessly updated continuously**
+
+## ESP Updating
+
+Whenever the Monster is loaded on the ESP32, it makes a call to the /return_attr.py?user=USERNAME route.
+Then, a JSON object of [1] all relevant information for the monster's appearance and 
+[2] information for the statistics page is returned.
+
+~~~~
+ret = {
+    "color": 1, 
+    "mood": mood,
+    "stage": stage,
+    "height": height,
+    "trophies": {
+        "instrumental": bool(user_data['instr']),
+        "rap": bool(user_data['rap']),
+        "rock": bool(user_data['rock']),
+        "techno": bool(user_data["techno"]),
+        "country": bool(user_data['country']),
+        "pop": bool(user_data['pop']),
+        "rock": bool(user_data["rock"])
+    },
+    "stats": {
+        "total": user_data['num_songs'],
+        "today": user_data['numsongsrecent'],
+        "top_genre":user_data["top_genre"],
+        "top_songs": top_songs,
+        "recent_songs": recent_songs,
+        "top_artists": top_artists,
+        "mood_indexes": mood_indexes,
+        "trophies_so_far": trophies_so_far
+    }
+}
+~~~~
+
+![ESP Listening Stats Page](images/esp_stats.jpeg)
+
+# 🟢 SQL Tables
+
+We have 3 main SQL tables in the "spotify.db" database. 
+
+## Table user_tokens
+
+![User Token Table](images/token_table.jpeg)
+
+This table holds the refresh tokens for each user that can be exchanged for access tokens for Spotify API calls. This 
+table is NOT publically accessible for security reasons.
+
+
+## Table listening_history
+
+![Listening History Table](images/listening_history.jpeg)
+
+This table holds the main listening history data for our project. Every song we have listened to since 
+we started collecting data is in this table. This table is updated every 30 minutes through a cron job.
+
+## Table user_data
+
+![User Data Table](images/stats_table.jpeg)
+
+This table holds statistics about every user's listening history. This is also updated every 30 minutes 
+through the cron job.
+
+
+# 🟣 Arduino Files
+
+## Scripts
+
+### Main Script 
+The main script contains all global variables, the setup sequence, looping sequence, user interface state machine, stat selector state machine, screen appearance functions, and user input functions. These are described below:
+- `setup()` is the setup function. This runs once and sets up a WiFi connection and sets up the monster and RGB LED with proper attributes and colors via the `update_appearance(...)` function.
+- `loop()` is the constantly looping function on the ESP32. This function calls the user input functions and passes this data along with the monster, stat, and led objects to the `monster_state_machine(...)` function.
+- `draw_background()` draws the background that appears behind the Spotify monster.
+- `update_appearance(Monster* monster, Stat* user_stats, int* led, char* user_key, char* response, int response_size, bool led_and_stats)` makes a request to the team server to fetch the most up-to-date appearance and statistics of the user's listening history. The function then parses the json object that is returned (as detailed in ESP Updating section) and then updates the user's monster accordingly.
+- `monster_state_machine(Monster* monster, Monster* other_monster, uint8_t* state, Stat* user_stats, int* led, float angle, int b1, int b2)` is the User Interface State Machine as detailed above in User Interaction section.
+- `draw_stats_page()` handles the statistics page appearance, updating based on button input within the User Interface State Machine.
+- `get_angle(float * x)` fetches the breadboard angle from the inertial measurement unit.
+- `record_audio()` handles and stores speech input via the microphone.
+- `mulaw_encode(int16_t sample)` works with `record_audio` to encode audio input into a form acceptable for Google speech recognition.
+
+### Supporting Script
+The supporting script contains functions to assist in HTTP and HTTPS requests, geolocation processing, and audio processing. These are described below:
+- `char_append(char* buff, char c, uint16_t buff_size)` supports `do_http_request(...)` and `do_https_request(...)` 
+- `do_http_request(char* host, char* request, char* response, uint16_t response_size, uint16_t response_timeout, uint8_t serial)` performs an unsecured request to the host with the passed in request pointer and re-assigns the response to the passed in response pointer.
+- `do_https_request(char* host, char* request, char* response, uint16_t response_size, uint16_t response_timeout, uint8_t serial)` performs a secured request to the host with the passed in request pointer and re-assigns the response to the passed in response pointer. Required with Google geolocation and speech recognition APIs.
+- `wifi_object_builder(char* object_string, uint32_t os_len, uint8_t channel, int signal_strength, uint8_t* mac_address)` builds the request for Google geolocation to identify the user's location based on nearby mac addresses and relative signal strengths.
+- The remaining functions are used in audio processing, specifically the processing, encoding and decoding of signals.
+
+## Libraries and Classes
+
+### Button 
+Button is a library containing the Button class which is adaptation of the 6.08 classy button exercise. It handles the state machine of how the buttons operate and handle debouncing. 
+When operating, the user can press for a long period of time, short period of time, or no time at all. The Button class is initialized with `Button::Button(int p)` where `p` is the pin on the ESP32 where the button is connected.
+We use two buttons in Spotify Monsters for the user to interact with their monster. 
+
+- `Button::read()` uses `digitalRead()` to tell whether the button pin is 
+- `Button::update()` contains the state machine of the Button. There are 5 contained states: an unpressed state, a within-debounce state, a short press state, a long press state, and a return state. When the button is pressed, the state changes from unpressed to within-debounce. It will not move to short press until the button has been pressed for a greater duration than the debounce duration. Then within the short press state, the button will not move to long press until the time since entering the short press state is greater than the long press duration threshold. For our implementations, this is 1 second. When in the short press or long press state, upon release, the state changes to return state which if pressed again within the debounce duration, will return to the previous pressed state. Otherwise, the return state will determine which state it came from and return a flag value based on this information: a 1 for a short press, and a 2 for a long press. Then the state finally returns to the unpressed state which returns a flag value of 0 for being unpressed.
+
+## Monster
+Monster is a library (modified from a class) representing an individual user's monster on the LCD. It handles the appearance, position, individual actions, and multiple monster actions that can occur in Spotify Monsters.
+
+We use two instantiations of the Monster class. The first monster is representative of the main user and the second is a "blank slate" monster that renders based on the attributes of other users in proximity to the main user. 
+The other monster only appears when the **PROX** state in the UI state machine is entered simultaneously by two users in proximity to each other.
+
+`Monster::Monster(TFT_eSPI* tft_to_use, uint16_t color, int mood, int stage, int height_)` initializes a monster, specifically giving parameters for the LCD location that the monster will be drawn to, it's color, mood, stage of growth, and height.
+#### Monster Appearance
+The following variables determine the monster's appearance on the LCD:
+- `tft` the TFT object where the monster will appear.
+- `BODY_COLOR`, `MOOD`, `STAGE`, and `HEIGHT` are physical attributes of the monster
+- `HAS_POP`, `HAS_COUNTRY`, `HAS_RAP`, `HAS_INSTRUMENTAL`, `HAS_TECHNO`, and `HAS_ROCK` are booleans denoting if the monster appears with the indicated trophy
+
+#### Monster Position
+The following variables determine the monster's location on the LCD:
+- `BODY_START_X`, `PAST_START_X`, `BODY_START_Y`, `PAST_START_Y`, `BODY_HEIGHT`, and `BODY_WIDTH` are for the monster's body
+- `ARM_LENGTH`, `ARM_OFFSET_Y`, and `ARM_START_Y` are for the monster's arms
+- `LEG_LENGTH`, `LEG_OFFSET_X`, `LEG_START`, `RLEG_END`, `LLEG_END`, `LEFT_LEG_X`, and `RIGHT_LEG_X` are for the monster's legs
+- `EYE_RADIUS`, `EYE_OFFSET_X`, `LEFT_EYE_START_X`, and `RIGHT_EYE_START_X` are for the monster's eyes
+- `MOUTH_CENTER_X`, `MOUTH_CENTER_Y`, `MOUTH_WIDTH`, and `MOUTH_HEIGHT` are for the monster's mouth 
+
+#### Individual Monster Actions 
+The following methods are individual monster actions:
+- `Monster::draw_mic()` draws the microphone trophy in the monster's right hand
+- `Monster::draw_shoes()` draws the shoes trophy on the monster's legs/feet
+- `Monster::draw_hat()` draws the cowboy hat trophy on the monster's head
+- `Monster::draw_headphones()` draws the headphones trophy on the monster's head
+- `Monster::draw_glasses()` draws the glasses trophy on the monster's head and eyes
+- `Monster::draw_guitar()` draws the guitar trophy in the monster's left hand
+- `Monster::draw_mouth()` draws the monster's mouth
+- `Monster::draw_eyes(int off_x = 0, int off_y = 0)` draws the monster's eyes with offsets for looking in different directions
+- `Monster::look_down()` draws the monster's eyes looking down
+- `Monster::look_left()` draws the monster's eyes looking left
+- `Monster::look_right()` draws the monster's eyes looking right
+- `Monster::look_up()` draws the monster's eyes looking up
+- `Monster::draw_legs(int LL_HEIGHT = 15, int RL_HEIGHT = 15)` draws the monster's legs with default parameters for leg lengths
+- `Monster::draw_arms()` draws the monster's arms
+- `Monster::draw_heart()` draws a heart on the monster's body
+- `Monster::remove_heart()` removes the heart on the monster's body
+- `Monster::draw_right_fist()` draws a thumb's up on the monster's right arm
+- `Monster::erase_right_fist()` removes a thumb's up on the monster's right arm
+- `Monster::draw_base(int LLEG = 15, int RLEG = 15)` draws the body, mouth, arm's, legs, eye's, and trophies of the monster (the "base state" of the monster)
+- `Monster::set_height(int height_)` sets the height of the monster
+- `Monster::set_x_vals(Monster* monster, int new_x)` sets the horizontal location of the monster
+- `Monster::set_y_vals(Monster* monster, int new_y)` sets the vertical location of the monster
+- `Monster::blink_eyes()` draws the eyes opening and closing
+- `Monster::tickle()` draws a sequence of actions where the monster closes it's eyes, opens it's mouth, and lifts legs like being tickled
+- `Monster::walk_right(Monster* monster, int dist)` draws the monster moving to the right
+- `Monster::walk_left(Monster* monster, int dist)` draws the monster moving to the left
+- `Monster::jump(Monster* monster, int dist)` draws the monster moving vertically up and down like it is jumping
+- `Monster::disco_dance(Monster* monster_1)` draws the monster smiling and jumping up and down like a dance
+#### Multiple Monster Actions
+The following methods are actions for two monsters:
+- `Monster::double_monster_enter_screen(Monster* monster_1, Monster* monster_2)` draws the first monster moving to the left and the second monster moving onto the screen
+- `Monster::double_monster_exit_screen(Monster* monster_1, Monster* monster_2)` draws the second monster moving off the screen and the first monster moving to the right
+- `Monster::compatibility_low(Monster* monster_1, Monster* monster_2)` draws the monsters with frowns and looking away from each other
+- `Monster::compatibility_medium(Monster* monster_1, Monster* monster_2)` draws the first monster giving the second monster a thumb's up motion
+- `Monster::compatibility_high(Monster* monster_1, Monster* monster_2)` draws smiles and hearts on the bodies of both monsters then removes the hearts from both
+
+Checkout a demo of the full two monster interactions <a href=https://www.youtube.com/watch?v=NlJPXdwI7Hw&feature=youtu.be>here</a>. 
+
+# ⚫ Conclusion + Final Notes
+
+## Getting the proximity features to work
+
+Our original plan was to use BLE technology on the ESP32 to find other users in proximity. However, while researching the BLE technology on the ESP32, we ran into issues when ESPs were trying to broadcast their usernames and simultaneously scan for other users.
+Our backup plan however worked well to find the locations of users and no proximity features were compromised. 
+
+## Learning the Spotify Authorization Flow
+	
+The Spotify API was unlike any of the APIs we used in class. It wasn’t as simple as a GET or POST request as 
+	it required authorization. Therefore, we needed to learn Spotify’s authorization flow and how access/refresh 
+	tokens are used and stored. This allowed us to make it so the user did not need to sign in every 30 mins and 
+	the collection of data could be automated. 
+
+## Animating graphics on the ESP
+
+Originally, for each of the animations, the Monster class would redraw the entire screen. However,
+this approach resulted in choppy animations and lots of screen flashing. Since the TFT class only updates
+pixel colors when directly programmed to, we made use of "trailing lines". Basically, every time the Monster
+is redrawn, it is drawn with a blue/green outline (dependent on where the drawn pixel is relative to the background).
+So, when the monster moved to the right or the left, it would be trailed by a background color that "erases"
+the previous animation frame's pixels. 
+
+This approach minimizes the number of pixels that need to be redrawn on each animation frame and leads to smoother
+overall animations.
+
+
+# Milestones clustered:
+
+Backend: 
+
+<a href=https://www.youtube.com/watch?v=4bvCzkE4A-o&feature=youtu.be>Setting up the API</a>
+
+<a href=https://www.youtube.com/watch?v=UfHwCH9HOCI&feature=youtu.be>User stats</a>
+
+<a href=https://www.youtube.com/watch?v=NqT-SExxUqY>Cron Jobs</a>
+
+<a href=https://www.youtube.com/watch?v=aWQFpBlfeVc&feature=youtu.be>Aggregate User Data</a>
+
+Web: 
+
+<a href=https://www.youtube.com/watch?v=w2P7eshe3pQ&feature=youtu.be>Compatibility</a>
+
+<a href=https://www.youtube.com/watch?v=Tk6emIuPBQM&feature=youtu.be>Strangers and Friends</a>
+
+<a href=https://www.youtube.com/watch?v=ycTHWXm64kk&feature=youtu.be>Better Compatibility and Trophies</a>
+
+<a href=https://www.youtube.com/watch?v=OzRzYbzwf0Y>Recommender</a>
+
+ESP32:
+
+<a href=https://www.youtube.com/watch?v=XRw8C3yeUK4>Monster Graphics</a>
+
+<a href=https://www.youtube.com/watch?v=ojfM5vrPfu0>Monster Animations</a>
+
+<a href=https://www.youtube.com/watch?v=NlJPXdwI7Hw>Two Monster Interaction Animations</a>
+
+<a href=https://www.youtube.com/watch?v=1o6UQZ9w32Q&feature=youtu.be>Basic State Machine</a>
+
+<a href=https://www.youtube.com/watch?v=l4PrvNHqhDE&feature=youtu.be>Proximity </a>
+
+<a href=https://www.youtube.com/watch?v=bsmbQcIfeAE>Better Proximity</a>
+
+<a href=https://www.youtube.com/watch?v=5AjtpYmiieg>LED and Stats Integration</a>
+
+<a href=https://www.youtube.com/watch?v=rYhj5gVI9jQ>Better Stats</a>
+
+<style class="fallback">body{visibility:hidden}</style><script>markdeepOptions={tocStyle:'medium'};</script>
+<!-- Markdeep: --><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script>

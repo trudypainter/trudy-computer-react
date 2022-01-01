@@ -1,4 +1,5 @@
 from flask import Flask, send_from_directory, redirect, request
+from flask.helpers import send_file
 from sqlalchemy.sql.sqltypes import Integer
 from flask_sqlalchemy import SQLAlchemy
 import requests
@@ -73,10 +74,13 @@ def project(project):
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/608-writeup', methods=["GET"])
+def writeup():
+    return send_file('projects/spotify-monster/FINAL_WRITEUP/final_writeup.html')
+
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
-
 
 if __name__ == '__main__':
   app.run(debug=True)

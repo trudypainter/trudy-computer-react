@@ -3,3 +3,9 @@
   border: 1px solid black;
   border-top: none;
 }
+
+img {
+  max-width: 80%;
+  max-height: 900px;
+  margin: auto;
+}

@@ -14,7 +14,7 @@ I worked as a music researcher and web developer for this project. I...
 
 Below is a diagram of the system.
 
-![System Overview](rtroverview.jpg)
+![System Overview](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/real-talk-radio/rtroverview.jpg)
 
 This project has not been released to the public yet. However, you can watch a demo here.
 
