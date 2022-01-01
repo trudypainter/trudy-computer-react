@@ -1,10 +1,12 @@
 .arenaHighlight {
   width: 33%;
+  font-size: 14px;
 }
 .arenaTitle {
   width: 100%;
   text-align: center;
   padding: 10px 0px;
+  font-size: 14px;
 }
 
 .channelLink {
