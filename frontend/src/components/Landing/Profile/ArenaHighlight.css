@@ -1,6 +1,7 @@
 .arenaHighlight {
   width: 33%;
   font-size: 14px;
+  -webkit-text-size-adjust: 100%;
 }
 .arenaTitle {
   width: 100%;
