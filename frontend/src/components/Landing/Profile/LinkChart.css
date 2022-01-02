@@ -92,7 +92,7 @@
 .linkedin {
   position: absolute;
   top: 62px;
-  left: calc(100% - 106px);
+  left: calc(100% - 96px);
 }
 
 @media only screen and (max-width: 720px) {
