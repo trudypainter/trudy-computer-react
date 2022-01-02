@@ -30,8 +30,9 @@
 
 .tags {
   position: absolute;
-  bottom: 20px;
+  bottom: 14px;
   font-style: italic;
+  max-width: calc(100% - 20px - 100px);
 }
 
 .more {

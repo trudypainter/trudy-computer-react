@@ -1,14 +1,17 @@
 import "./Scroller.css";
 import Marquee from "react-fast-marquee";
+import { useEffect, useState } from "react";
 
 const Scroller = () => {
-  const one = " 🎧Songs Listened To Today: 30";
-  const two = " 💻Tabs Opened Today: 30";
-  const three = " 🌤My Current Weather: 70 and Sunny";
-  const four = " 👟Did I Run Today: Yes";
-  const five = " 🌐Site Vists Total: 300   ";
+  const [scrollerInfo, updateScrollerInfo] = useState();
 
-  const scrollerList = [one, two, three, four, five];
+  useEffect(() => {
+    fetch("/api/scroller_info")
+      .then((response) => response.json())
+      .then((response) => {
+        updateScrollerInfo(response.data);
+      });
+  }, []);
 
   return (
     <Marquee
@@ -17,7 +20,7 @@ const Scroller = () => {
       pauseOnHover="true"
       className="scroller"
     >
-      {scrollerList.map((item) => item)}
+      {scrollerInfo}
     </Marquee>
   );
 };
