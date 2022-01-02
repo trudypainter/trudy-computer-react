@@ -1,9 +1,10 @@
 .projectBox {
-  margin: auto;
   margin-top: 20px;
+
+  margin-left: auto;
+  margin-right: auto;
+
   padding: 0px;
-  border: 1px solid black;
-  background-color: white;
 
   display: flex;
   flex-wrap: wrap;

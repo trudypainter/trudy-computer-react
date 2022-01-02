@@ -1,8 +1,12 @@
 .projectItem {
-  width: 33%;
-  border-left: 1px solid black;
-  transform: translateX(-1px);
+  width: calc(33% - 19px);
+  border: 1px solid black;
+  position: relative;
+
   padding: 10px;
+  margin-left: -1px;
+  margin-bottom: -1px;
+  background-color: white;
 }
 
 .subtitle {
@@ -19,13 +23,14 @@
 .thumbImg {
   position: relative;
   width: 100%;
-  height: calc(width);
+  height: 100%;
   border: 1px solid black;
+  object-fit: cover;
 }
 
 .tags {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   font-style: italic;
 }
 
@@ -41,4 +46,11 @@
 .more:hover {
   cursor: pointer;
   background-color: yellow;
+}
+
+@media only screen and (max-width: 810px) {
+  /* For mobile phones: */
+  .projectItem {
+    width: calc(50% - 21px);
+  }
 }
