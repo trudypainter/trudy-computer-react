@@ -31,7 +31,7 @@ def landing():
 @app.route('/api/project_url_list', methods=["GET"])
 def project_list():
     folders = os.listdir("projects")
-    
+
     return {"data": folders}
 
 @app.route('/api/<project>', methods=["GET"])
