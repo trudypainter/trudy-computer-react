@@ -8,13 +8,12 @@
 }
 
 .title {
-  margin: 10px;
+  width: calc(100% - 20px);
   padding: 10px;
   text-align: center;
   font-size: 24px;
-  width: calc(100% - 40px);
   position: absolute;
-  top: calc(50% - 24px);
+  top: 0px;
   background-color: black;
 }
 
@@ -25,12 +24,15 @@
   align-items: center;
 
   position: relative;
-  top: -20px;
+  top: 0px;
   left: 0px;
+
+  background: url("https://image-aws-us-west-2.vsco.co/988393/81457622/61bddadbfe916b772e176e36/vsco61bddadde182d.jpg");
+  background-size: cover;
 }
 
 .meImg {
-  visibility: hidden;
+  visibility: visible;
   height: 100%;
   width: 100%;
   display: block;
@@ -39,8 +41,6 @@
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-
-  position: absolute;
 }
 
 @media only screen and (max-width: 720px) {
