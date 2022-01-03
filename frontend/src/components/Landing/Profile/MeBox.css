@@ -2,18 +2,19 @@
   width: 33%;
   border-right: 1px solid black;
   align-items: center;
-  background-color: yellow;
   color: white;
   height: 232px;
 }
 
 .title {
-  width: calc(100% - 20px);
+  width: calc(100% - 40px);
   padding: 10px;
+  margin: 10px;
   text-align: center;
   font-size: 24px;
   position: absolute;
   top: 0px;
+  left: 00px;
   background-color: black;
 }
 
@@ -27,8 +28,9 @@
   top: 0px;
   left: 0px;
 
-  background: url("https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/mebridge.jpeg?raw=true");
+  background: url("https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/selfie.jpeg?raw=true");
   background-size: cover;
+  background-position: center;
 }
 
 .meImg {

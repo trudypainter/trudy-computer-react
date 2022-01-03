@@ -6,7 +6,7 @@ Volar empowers the growing middle class of content creators in Latam with the bu
 
 ---
 
-UPDATE: Volar has stopped development. I learned valuable skills developing a website across a language barrier and how to ideate at the initial stages of a startup, though.
+UPDATE: Volar has been terminated. I learned valuable skills developing a website across a language barrier and how to ideate at the initial stages of a startup, though.
 
 The website was also taken down. This is the only screenshot I have of the platform.
 
