@@ -84,6 +84,9 @@ def landing():
                         data['image'] + "?raw=true"
         landing_list.append(data)
 
+    # sort by year
+    landing_list = sorted(landing_list, key=lambda d: d['year'], reverse=True) 
+
     return {"data": landing_list}
 
 # 💛 url list
