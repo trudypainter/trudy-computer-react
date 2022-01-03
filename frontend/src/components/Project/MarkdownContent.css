@@ -3,6 +3,7 @@
   border: 1px solid black;
   border-top: none;
   background-color: white;
+  max-width: 800px;
 }
 
 img {

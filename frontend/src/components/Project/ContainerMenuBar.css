@@ -4,6 +4,7 @@
   padding: 10px;
   background-color: yellow;
   position: inherit;
+  max-width: 800px;
 }
 
 .exitButton {

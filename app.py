@@ -36,10 +36,8 @@ def get_num_songs():
     today = datetime.now()
     today = today - timedelta(hours=9)
     str_date = today.strftime("%m.%d.%Y")
-    print("🧡", str_date)
     response = requests.get('https://react-flask-listening.herokuapp.com/api/' + str_date)
     json = response.json()
-    print("🟨", str_date, json)
 
     return len(json["songs"])
 
