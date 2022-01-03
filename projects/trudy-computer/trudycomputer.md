@@ -16,9 +16,9 @@ I want to feel comfortable sending my website to friends AND employers.
 
 A lot of my minimalist/bruatlist web design inspiration is collected in this [Are.na channel](https://www.are.na/trudy-painter/ui-ux-e7l6cz6uksa).
 
-The frontend is made with React. The backend is a Flask web server (hosted on Heroku) that serves Markdown files. The backend is a custom content management system I designed myself.
+The frontend is made with React. The backend is a Flask web server (hosted on Heroku) that turns Markdown files into HTML. The backend also has a custom content management system designed by me.
 
-Below are diagrams from my initial design stages. And, you can look at how the system was made in this repository.
+Below are diagrams from my initial design stages. And, you can look at how the system was made in [this repository](https://github.com/trudypainter/trudy-computer-react).
 
 ![Frontend](frontend.jpeg)
 
