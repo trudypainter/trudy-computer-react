@@ -148,6 +148,10 @@ def index():
 def writeup():
     return send_file('projects/spotify-monster/FINAL_WRITEUP/final_writeup.html')
 
+@app.route('/resume', methods=["GET"])
+def resume():
+    return send_file("TrudyPainterResume.pdf")
+
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
