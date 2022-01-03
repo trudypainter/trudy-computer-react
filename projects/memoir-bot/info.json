@@ -2,7 +2,7 @@
   "title": "MEMOIR TWITTER BOT",
   "year": 2020,
   "location": "Personal Project",
-  "image": "https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/memoirbot.png?raw=true",
+  "image": "memoirbot.png",
   "description": "Memoir Generator Twitter Bot",
   "tags": ["Bot"]
 }

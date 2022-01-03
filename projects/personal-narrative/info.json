@@ -2,7 +2,7 @@
   "title": "PERSONAL NARRATIVE PREDICTOR",
   "year": 2020,
   "location": "MIT Media Lab",
-  "image": "https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/mre.png?raw=true",
+  "image": "mre.png",
   "description": "Machine learning model for personal narratives.",
   "tags": ["Machine Learning"]
 }

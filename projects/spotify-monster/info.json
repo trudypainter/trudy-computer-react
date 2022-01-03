@@ -1,8 +1,8 @@
 {
   "title": "SPOTIFY MONSTER",
   "year": 2021,
-  "location": "6.08 Embedded Systems Class Final Project",
-  "image": "https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/spotify.png?raw=true",
+  "location": "MIT Embedded Systems Class",
+  "image": "spotify.png",
   "description": "Social network of Spotify Tamagotchi on Arduino",
   "tags": ["Fullstack, Arduino"]
 }

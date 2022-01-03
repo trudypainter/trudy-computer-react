@@ -8,4 +8,4 @@ Check out the [full writeup here](/608-writeup)! Code is available upon request.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/OLjwTaYY8Ik" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-![System Overview](https://github.com/trudypainter/trudy-computer-react/blob/main/projects/spotify-monster/FINAL_WRITEUP/images/overview.jpeg?raw=true)
+![System Overview](FINAL_WRITEUP/images/overview.jpeg)

@@ -8,4 +8,4 @@ Here's the [repository](https://github.com/trudypainter/memoir-title-generator).
 
 And, check out the [Twitter Bot](https://twitter.com/memoirmaker).
 
-![Examples](https://github.com/trudypainter/trudy-computer-react/blob/main/projects/memoir-bot/examples.png?raw=true)
+![Examples](examples.png)

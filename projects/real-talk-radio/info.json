@@ -2,7 +2,7 @@
   "title": "REAL TALK RADIO",
   "year": 2020,
   "location": "MIT Media Lab",
-  "image": "https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/rtr.png?raw=true",
+  "image": "rtr.png",
   "description": "Continuous audio stream of spoken interludes in Black music.",
   "tags": ["Fullstack, Archive"]
 }

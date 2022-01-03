@@ -6,4 +6,4 @@ Check out my contributions in this [repository](https://github.com/trudypainter/
 
 Or, take a look at her [final presentation](https://github.com/social-machines/acl-nuse-personal-narratives).
 
-![System Model](https://github.com/trudypainter/trudy-computer-react/blob/main/projects/personal-narrative/mre.jpg?raw=true)
+![System Model](mre.jpg)

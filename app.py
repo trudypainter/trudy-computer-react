@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import markdown
 import os
 import requests
+import re
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 
@@ -33,8 +34,9 @@ def get_visits():
 # 🧡 for the scroller
 def get_num_songs():
     today = datetime.now()
-    today = today - timedelta(hours=8)
-    str_date = today.strftime("%d.%m.%Y")
+    today = today - timedelta(hours=9)
+    str_date = today.strftime("%m.%d.%Y")
+    print("🧡", str_date)
     response = requests.get('https://react-flask-listening.herokuapp.com/api/' + str_date)
     json = response.json()
     print("🟨", str_date, json)
@@ -62,15 +64,15 @@ def scroller():
     songs = get_num_songs()
     weather = get_current_weather()
 
-    data = " 🎧Songs Listened To Today: " + str(songs) + \
-        " 🌤Boston's Current Weather: " + str(weather.title()) + \
-            " 🌐Site Vists Total: " + str(num_visits)
+    data = "  🎧 Songs Listened To Today: " + str(songs) + \
+        " 🌤 Boston's Current Weather: " + str(weather.title()) + \
+            " 🌐 Site Vists Total: " + str(num_visits)
 
     return {
         "data": data + data,
     }
 
-
+# 💗 for the scroller
 @app.route('/api/landing', methods=["GET"])
 def landing():
     folders = os.listdir("projects")
@@ -80,19 +82,32 @@ def landing():
         f = open("projects/"+folder+"/info.json")
         data = json.load(f)
         data["url"] = folder
+        data['image'] = "https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/" + \
+                        data['image'] + "?raw=true"
         landing_list.append(data)
 
     return {"data": landing_list}
 
+# 💛 url list
 @app.route('/api/project_url_list', methods=["GET"])
 def project_list():
     folders = os.listdir("projects")
 
     return {"data": folders}
 
+# 💚 project page
+def update_md_image(text, project):
+    image_list = re.findall("!\[(.*?)\]\((.*?)\)", text)
+
+    for img in image_list:
+        og_img = "![{text}]({link})".format(text=img[0], link=img[1])
+        new_image_link = "![{text}](https://github.com/trudypainter/trudy-computer-react/blob/main/projects/{project}/{link}?raw=true)".format(text=img[0], project=project, link=img[1])
+        text = text.replace(og_img, new_image_link)
+
+    return text
+
 @app.route('/api/<project>', methods=["GET"])
 def project(project):
-    print("🟩 ", project)
     items = os.listdir("projects/" + project)
 
     # get markdown file
@@ -100,14 +115,14 @@ def project(project):
     for item in items:
         print(item[-2:])
         if item[-2:] == "md":
-            print("🌐")
             markdown_filename = item
 
     # read markdown text
     with open("projects/"+project+"/" + markdown_filename, 'r') as f:
         text = f.read()
+        print("🌐", text)
+        text = update_md_image(text, project)
         html = markdown.markdown(text)    
-    print(html)
 
     # get project title
     f = open("projects/"+project+"/info.json")
@@ -118,8 +133,6 @@ def project(project):
         "title": project_title,
         "markdown": html,
     }
-    print("🟩🟨")
-    print(response)
     return response
 
 

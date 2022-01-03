@@ -1,8 +1,8 @@
 {
-  "title": "SPOTIFY MONSTER",
-  "year": 2021,
-  "location": "6.08 Embedded Systems Class Final Project",
-  "image": "https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/spotify.png?raw=true",
-  "description": "Social network of Spotify Tamagotchi on Arduino",
-  "tags": ["Fullstack, Arduino"]
+  "title": "VSCO ZINE GENERATOR",
+  "year": 2020,
+  "location": "Personal Project",
+  "image": "vsco.png",
+  "description": "Generate printable zines from a VSCO using Bindery JS",
+  "tags": ["Fullstack"]
 }
