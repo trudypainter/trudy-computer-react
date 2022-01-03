@@ -7,3 +7,5 @@ The Are.na channel is large (over 10,000 images). So, it takes a really long tim
 This is the [repository](https://github.com/trudypainter/pokemon-archive) for how I made the scraper and uploaded the images.
 
 And, this is the [Are.na channel](https://www.are.na/trudy-painter/every-pokemon-card-uz5ifttjceo).
+
+![Are.na Channel screenshot](pokemonarena.png)
