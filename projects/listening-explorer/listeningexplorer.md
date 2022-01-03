@@ -4,13 +4,9 @@ In 2020, I made a [mood tracker for my Spotify listening behavior](/spotify-mood
 
 However, there were a few things I thought could be improved from this site.
 
-1. The site was not reliable.
-   - I collected songs using a scheduled task on my physical MacBook. So, if I had my computer turned off or was not connected to the internet, the data wouldn't be collected.
-   - The data was also stored in CSV files in Github. This is a crafty, free solution. However, this isn't best practice for storing lots of large data.
-2. The site was made using plain HTML/JS/CSS.
-   - This implement was fine for this specific project, but I wanted to practice making more modular sites for the next project (React)
-3. The mood graph was non-sensical
-   - I thought the mood indices provided by the Spotify API would be more insightful. But, the graphs didn't make much sense.
+1. The site was not reliable. I collected songs using a scheduled task on my physical MacBook. So, if I had my computer turned off or was not connected to the internet, the data wouldn't be collected. The data was also stored in CSV files in Github. This is a crafty, free solution. However, this isn't best practice for storing lots of large data.
+2. The site was made using plain HTML/JS/CSS. This implementation was fine for this specific project, but I wanted to practice making more modular sites for the next project (React)
+3. The mood graph was non-sensical. I thought the mood indices provided by the Spotify API would be more insightful. But, the graphs didn't make much sense.
 
 ---
 
