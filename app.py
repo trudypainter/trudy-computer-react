@@ -79,6 +79,8 @@ def scroller():
         " 🌤 Boston's Current Weather: " + str(weather.title()) + \
             " 🌐 Site Visits Total: " + str(num_visits)
 
+    print(data)
+    
     response = make_response(json.dumps({
         "data": data + data,
     }))
@@ -110,7 +112,6 @@ def landing():
 def project_list():
     folders = os.listdir("projects")
     
-
     return {"data": folders}
 
 # 💚 project page
