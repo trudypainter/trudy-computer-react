@@ -13,5 +13,3 @@ Werkzeug==2.0.1
 flask-sqlalchemy==2.5.1
 psycopg2==2.9.2
 markdown==3.3.6
-psycopg2==2.8.4 
-Flask-SQLAlchemy===2.4.1
