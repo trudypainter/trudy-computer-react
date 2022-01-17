@@ -5,7 +5,7 @@ import Parser from "html-react-parser";
 const MarkdownContent = (props) => {
   const [markdownContent, updateMarkdownContent] = useState("");
 
-  console.log("FETCHING FOR md content", props.projectUrl);
+  console.log(props.baseURL + "FETCHING FOR md content", props.projectUrl);
   useEffect(() => {
     fetch("/api/" + props.projectUrl)
       .then((response) => response.json())

@@ -2,7 +2,7 @@ import "./LandingPage.css";
 import ProfileBox from "./Landing/ProfileBox";
 import ProjectBox from "./Landing/ProjectBox";
 
-const LandingPage = () => {
+const LandingPage = (props) => {
   const bannerStyle = {
     height: "43px",
     width: "350px",
@@ -19,7 +19,7 @@ const LandingPage = () => {
   return (
     <div className="landingPage">
       <ProfileBox />
-      <ProjectBox />
+      <ProjectBox baseURL={props.baseURL} />
       <a target="_blank" href="https://gossipsweb.net">
         <img
           src="https://gossipsweb.net/images/twwmwh-gray.jpg"

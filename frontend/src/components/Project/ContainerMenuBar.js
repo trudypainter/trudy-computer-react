@@ -6,7 +6,7 @@ const ContainerMenuBar = (props) => {
 
   console.log("fetching for container bar");
   useEffect(() => {
-    fetch("/api/" + props.projectUrl)
+    fetch(props.baseURL + "/api/" + props.projectUrl)
       .then((response) => response.json())
       .then((response) => {
         console.log(response.title);

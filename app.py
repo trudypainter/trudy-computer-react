@@ -1,5 +1,5 @@
-from flask import Flask, send_from_directory, redirect, request
-from flask.helpers import send_file
+from flask import Flask, send_from_directory, redirect, request, Response
+from flask.helpers import make_response, send_file
 from sqlalchemy.sql.sqltypes import Integer
 from flask_sqlalchemy import SQLAlchemy
 import json
@@ -11,24 +11,35 @@ import requests
 import re
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jsuwurmosbaick:214e623fa4b05d9ae3dcd826ab63af15a6663c85e68699ef447a57fb53b7f800@ec2-18-234-17-166.compute-1.amazonaws.com:5432/db212f5dgbqvol'
+
+db = SQLAlchemy(app)
+
 
 ##################
 #  ⭐️ BACKEND    #
 ##################
+class Visit(db.Model):
+    visit_num = db.Column(db.String(120), primary_key=True)
+    time = db.Column(db.String(120))
+    location = db.Column(db.String(120))
+
+    def __init__(self, visit_num, time, location):
+        self.visit_num = visit_num
+        self.time = time
+        self.location = location
 
 # 🧡 for the scroller
 def get_visits():
-    f = open('./scroller/stats.txt', 'r')
-    lineList = f.readlines()
-    num_visits = int(lineList[0])
-    f.close()
+    # read songs
+    num_visits = db.session.query(Visit).count()
+    
+    # add new one
+    entry = Visit(str(num_visits+1), "time", "location")
+    db.session.add(entry)
+    db.session.commit()
 
-    f2 = open('./scroller/stats.txt', 'w')
-    new_vists = num_visits + 1
-    f2.write(str(new_vists))
-    f2.close()
-
-    print(num_visits, new_vists)
+    print(num_visits)
     return num_visits
 
 # 🧡 for the scroller
@@ -43,17 +54,19 @@ def get_num_songs():
 
 # 🧡 for the scroller
 def get_current_weather():
-    api_key = "97ab49d725c87fc40f502f1fd2886e6f"
+    api_key = "3fc9710dd566f607ef8248e37e80416a"
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     city_name = "boston"
     
-    complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+    complete_url = "http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=imperial"\
+        .format(city="boston", api_key=api_key)
     response = requests.get(complete_url)
     json = response.json()
 
     description = json["weather"][0]["description"]
+    temp = int(json["main"]['temp'])
 
-    return description
+    return "{} + {}".format(temp, description)
 
 # 🧡 for the scroller
 @app.route('/api/scroller_info', methods=["GET"])
@@ -64,11 +77,14 @@ def scroller():
 
     data = "  🎧 Songs Listened To Today: " + str(songs) + \
         " 🌤 Boston's Current Weather: " + str(weather.title()) + \
-            " 🌐 Site Vists Total: " + str(num_visits)
+            " 🌐 Site Visits Total: " + str(num_visits)
 
-    return {
+    response = make_response(json.dumps({
         "data": data + data,
-    }
+    }))
+    response.headers["Access-Control-Allow-Origin"] = "*"
+
+    return response
 
 # 💗 for the scroller
 @app.route('/api/landing', methods=["GET"])
@@ -93,6 +109,7 @@ def landing():
 @app.route('/api/project_url_list', methods=["GET"])
 def project_list():
     folders = os.listdir("projects")
+    
 
     return {"data": folders}
 
@@ -134,8 +151,11 @@ def project(project):
         "title": project_title,
         "markdown": html,
     }
-    return response
 
+    formatted_response = make_response(json.dumps(response))
+    formatted_response.headers["Access-Control-Allow-Origin"] = "*"
+
+    return formatted_response
 
 ##################
 #  ⭐️ FRONTEND   #

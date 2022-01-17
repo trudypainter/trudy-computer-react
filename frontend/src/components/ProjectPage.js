@@ -5,7 +5,7 @@ const ProjectPage = (props) => {
   console.log("PROJECT PAGE - ", props.projectUrl);
   return (
     <div className="projectPage">
-      <ProjectContainer projectUrl={props.projectUrl} />
+      <ProjectContainer baseURL={props.baseURL} projectUrl={props.projectUrl} />
       <div onClick={() => window.open("/", "_self")} className="homeButton">
         HOME
       </div>
