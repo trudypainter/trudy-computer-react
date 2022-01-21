@@ -8,10 +8,11 @@ from datetime import datetime, timedelta
 import markdown
 import os
 import requests
-import re
+from flask_cors import CORS
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jsuwurmosbaick:214e623fa4b05d9ae3dcd826ab63af15a6663c85e68699ef447a57fb53b7f800@ec2-18-234-17-166.compute-1.amazonaws.com:5432/db212f5dgbqvol'
+CORS(app)
 
 db = SQLAlchemy(app)
 
@@ -80,7 +81,7 @@ def scroller():
             " 🌐 Site Visits Total: " + str(num_visits)
 
     print(data)
-    
+
     response = make_response(json.dumps({
         "data": data + data,
     }))
@@ -163,6 +164,7 @@ def project(project):
 ##################
 @app.route('/', methods=["GET"])
 def index():
+    print("test")
     return app.send_static_file('index.html')
 
 @app.route('/608-writeup', methods=["GET"])
