@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import markdown
 import os
 import requests
+import re
 from flask_cors import CORS
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
