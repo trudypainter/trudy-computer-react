@@ -17,11 +17,11 @@ const Bio = () => {
           Viral Communications Group.
         </a>
       </p>
-      <p>
+      {/* <p>
         Interested in building online systems from scratch and how humans use
         technology. Also likes phone photography, running+biking,
         magazines+zines, clothes, and music.
-      </p>
+      </p> */}
       <p>
         📬 <a href="mailto:tpainter@mit.edu">tpainter@mit.edu</a>
       </p>
