@@ -5,7 +5,6 @@ This is a climate change news inflation botnet I made for my class [Network Cult
 <div style="padding:55% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/686531358?h=346f2472e8&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="botnet frontend"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/686531270?h=dd7bdae4d8" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-<p><a href="https://vimeo.com/686531270">botnet in action (slow)</a> from <a href="https://vimeo.com/user132139730">Trudy Painter</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 ## Inspiration
 
@@ -67,9 +66,15 @@ In the future, I want to use a dedicated Raspberry Pi server for this botnet. Id
 ## Sources
 
 Bogost, ["Carpentry: Constructing Artifacts That Do Philosophy"](https://quote.ucsd.edu/sed/files/2016/04/Bogost.pdf) in Alien Phenomenology (2012)
+
 Kazemi, "The Strange Journey of Metaphor-a-Minute" (2012)
+
 O'Leary, "Ethical bot-making," (n.d.)
+
 Geiger, "The Lives of Bots," in Critical Point of View: A Wikipedia Reader (2011)
+
 Github repo: https://github.com/trudypainter/altruistic-botnet Botnet in action: https://vimeo.com/686531270
+
 Botnet frontend demo: https://vimeo.com/686531358
+
 Are.na channel: https://www.are.na/trudy-painter/altruism-bots Synthetic Messenger: https://syntheticmessenger.labr.io/#
