@@ -1,0 +1,8 @@
+{
+  "title": "SPOTIFY BPM",
+  "year": 2022,
+  "location": "Personal Project",
+  "image": "spotifybpm.png",
+  "description": "Spotify library explorer by BPM.",
+  "tags": ["React, Spotify API"]
+}
