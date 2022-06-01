@@ -26,18 +26,4 @@ fetch("/api/project_url_list")
       </Router>,
       document.getElementById("root")
     );
-  })
-  .catch((error) => {
-    ReactDOM.render(
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route
-            path="/test-project-1"
-            element={<ProjectPage projectUrl="/test-project-1" />}
-          />
-        </Routes>
-      </Router>,
-      document.getElementById("root")
-    );
   });

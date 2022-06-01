@@ -1,6 +1,9 @@
 import "./ProjectItem.css";
 
 const ProjectItem = (props) => {
+  console.log("💞", props.project["title"]);
+  console.log("😻", typeof props.project);
+
   return (
     <div className="projectItem">
       <div className="projectTitle">{props.project.title}</div>
@@ -14,9 +17,8 @@ const ProjectItem = (props) => {
       </div>
 
       <div className="tags">
-        {props.project.tags.map((tag) => (
-          <span>{tag} </span>
-        ))}
+        {props.project.tags != undefined &&
+          props.project.tags.map((tag) => <span>{tag} </span>)}
       </div>
       <div
         onClick={() => window.open(props.project.url, "_self")}

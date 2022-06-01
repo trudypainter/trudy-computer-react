@@ -15,7 +15,7 @@ const ProjectBox = (props) => {
   return (
     <div className="projectBox">
       {projects.map((projectInfo) => (
-        <ProjectItem project={projectInfo} />
+        <ProjectItem project={JSON.parse(projectInfo)} />
       ))}
     </div>
   );

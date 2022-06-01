@@ -17,6 +17,32 @@ CORS(app)
 
 db = SQLAlchemy(app)
 
+########################
+#  ⭐️ NOTION CONFIG    #
+########################
+notion_token = "secret_PgUtwJiQQQab5NJzbL0uw4RiTGf1NfRvy9jlOyKAj3W"
+notion_database_id = "10e3696023bc490b8fbab03d03813d80"
+notion_headers = {
+    "Authorization": "Bearer " + notion_token,
+    "Content-Type": "application/json",
+    "Notion-Version": "2021-05-13"
+}
+
+# 💞 get the list of slugs of pages
+readUrl = f"https://api.notion.com/v1/databases/{notion_database_id}/query"
+res = requests.request("POST", readUrl, headers=notion_headers)
+data = res.json()
+results = data['results']
+
+# list of slugs
+slug_list = [result['properties']['slug']['rich_text'][0]['text']['content'] for result in results]
+
+# dict of slug: page_id
+slug_to_id_dict = dict()
+for result in results:
+    slug = result['properties']['slug']['rich_text'][0]['text']['content']
+    _id = result['id']
+    slug_to_id_dict[slug] = _id
 
 ##################
 #  ⭐️ BACKEND    #
@@ -90,68 +116,145 @@ def scroller():
 
     return response
 
-# 💗 for the scroller
+# 💗 query notion db for landing page to get grid info
 @app.route('/api/landing', methods=["GET"])
 def landing():
-    folders = os.listdir("projects")
+    # list to be returned
     landing_list = []
 
-    for folder in folders:
-        f = open("projects/"+folder+"/info.json")
-        data = json.load(f)
-        data["url"] = folder
-        data['image'] = "https://github.com/trudypainter/trudy-computer-react/blob/main/thumbnails/" + \
-                        data['image'] + "?raw=true"
-        landing_list.append(data)
+    readUrl = f"https://api.notion.com/v1/databases/{notion_database_id}/query"
+    res = requests.request("POST", readUrl, headers=notion_headers)
+    data = res.json()
+    
+    # gets a list of **pages** in the database
+    results = data['results']
+    
+    for result in results:
+        proj = dict()
+        
+        # [1] get the title of the project
+        title = result['properties']['title']['title'][0]['text']['content']
+        proj['title'] = title
+        
+        # [2] get the location of the project
+        location = result['properties']['location']['rich_text'][0]['text']['content']
+        proj['location'] = location
+        
+        # [3] get the year of the project
+        year = result['properties']['year']['rich_text'][0]['text']['content']
+        proj['year'] = year
+        
+        # [4] get the description of the project
+        description = result['properties']['description']['rich_text'][0]['text']['content']
+        proj['description'] = description
+        
+        # [5] get the thumbnail image
+        thumb_url = result['icon']['file']['url']
+        proj['image'] = thumb_url
+        # print(thumb_url)
+        # response = requests.get(thumb_url)
+            #img = Image.open(BytesIO(response.content))
+            #print(img)
 
-    # sort by year
-    landing_list = sorted(landing_list, key=lambda d: d['year'], reverse=True) 
+        # [6] get the tags of the project
+        tags = result['properties']['tags']['multi_select']
+        tag_list = [tag['name'] for tag in tags]
+        proj['tags'] = tag_list
+        
+        # [7] get the slug of the project
+        slug = result['properties']['slug']['rich_text'][0]['text']['content']
+        proj['url'] = slug
+        
+        # add json obj to landing list data
+        proj_json = json.dumps(proj)
+        landing_list.append(proj_json)
 
-    return {"data": landing_list}
+    print("🏳️‍🌈 LANDING LIST ", landing_list)
+    response = make_response(json.dumps({"data": landing_list}))
+    return response
 
-# 💛 url list
+# 💛 url list for the router
 @app.route('/api/project_url_list', methods=["GET"])
 def project_list():
-    folders = os.listdir("projects")
+    return {"data": slug_list}
+
+def getTextStr(block):
+    markdown_str = ""
+    _type = block['type']
     
-    return {"data": folders}
+    for text_obj in block[_type]['text']:
+        # add link
+        print(text_obj['plain_text'])
+        
+        if text_obj.get('href'):
+            markdown_str += "[{}]({})".format(text_obj.get("plain_text"), text_obj.get('href'))
+        else:
+            markdown_str += text_obj.get("plain_text")
+            
+    return markdown_str
 
-# 💚 project page
-def update_md_image(text, project):
-    image_list = re.findall("!\[(.*?)\]\((.*?)\)", text)
+def getFileStr(block):
+    markdown_str = ""
+    _type = block['type']
 
-    for img in image_list:
-        og_img = "![{text}]({link})".format(text=img[0], link=img[1])
-        new_image_link = "![{text}](https://github.com/trudypainter/trudy-computer-react/blob/main/projects/{project}/{link}?raw=true)".format(text=img[0], project=project, link=img[1])
-        text = text.replace(og_img, new_image_link)
+    # ![Tux, the Linux mascot](/assets/images/tux.png)
+    url = block[_type]['file']["url"]
+    caption = ""
+    if block[_type].get("caption"):
+        caption =  block[_type].get("caption")[0]['text']['content']
+    
+    markdown_str = "![{}]({})".format(caption, url)
+    
+    return markdown_str
 
-    return text
+def getVimeoStr(block):
+    _type = block['type']
+    vimeo_id = block[_type]['external']['url'].split("/")[-1]
+    return '<div style="padding:61.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/{}?h=f3b2397a7b&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'.format(vimeo_id)
 
+def getMarkdownStrFromPageID(page_id):
+    readUrl = f"https://api.notion.com/v1/blocks/" + page_id + "/children"
+    res = requests.request("GET", readUrl, headers=notion_headers)
+    data = res.json()
+    markdown_str = ""
+    
+    # gets a list of **content** in the **page id**
+    results = data['results']
+    for block in results:
+
+        # add md formats for strings
+        _type = block['type']
+        if _type == "heading_1": markdown_str += "# "
+        elif _type == "heading_2": markdown_str += "## "
+        elif _type == "heading_3": markdown_str += "### "
+        elif _type == "bulleted_list_item": markdown_str += "* "
+            
+        # [a] some sort of text obj (heading, paragraph, etc)    
+        if block[_type].get('text'):
+            markdown_str += getTextStr(block)
+
+        # [b] some sort of media (image, video etc)
+        elif block[_type].get('file'):
+            markdown_str += getFileStr(block)
+            
+        # [c] some sort of video embed (prob vimeo link)
+        elif _type == "video":
+            markdown_str += getVimeoStr(block)
+
+        markdown_str += " \n\n"
+
+    return markdown_str
+
+# 💜 endpoint for slug of project
 @app.route('/api/<project>', methods=["GET"])
 def project(project):
-    items = os.listdir("projects/" + project)
-
-    # get markdown file
-    markdown_filename = ""
-    for item in items:
-        print(item[-2:])
-        if item[-2:] == "md":
-            markdown_filename = item
-
-    # read markdown text
-    with open("projects/"+project+"/" + markdown_filename, 'r') as f:
-        text = f.read()
-        print("🌐", text)
-        text = update_md_image(text, project)
-        html = markdown.markdown(text)    
-
-    # get project title
-    f = open("projects/"+project+"/info.json")
-    data = json.load(f)
-    project_title = data['title']
+    
+    page_id = slug_to_id_dict[project]
+    text = getMarkdownStrFromPageID(page_id)
+    print("🍋", text)
+    html = markdown.markdown(text)    
 
     response = {
-        "title": project_title,
         "markdown": html,
     }
 
