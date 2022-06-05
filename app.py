@@ -137,7 +137,8 @@ def landing():
         proj['title'] = title
         
         # [2] get the location of the project
-        location = result['properties']['location']['rich_text'][0]['text']['content']
+        loc_color = result['properties']['location']['select']['color']
+        location = result['properties']['location']['select']['name']
         proj['location'] = location
         
         # [3] get the year of the project
@@ -149,12 +150,15 @@ def landing():
         proj['description'] = description
         
         # [5] get the thumbnail image
-        thumb_url = result['icon']['file']['url']
-        proj['image'] = thumb_url
-        # print(thumb_url)
-        # response = requests.get(thumb_url)
-            #img = Image.open(BytesIO(response.content))
-            #print(img)
+        try:
+            thumb_url = result['icon'].get('file').get('url')
+            proj['image'] = thumb_url
+            # print(thumb_url)
+            # response = requests.get(thumb_url)
+                #img = Image.open(BytesIO(response.content))
+                #print(img)
+        except:
+            pass
 
         # [6] get the tags of the project
         tags = result['properties']['tags']['multi_select']
@@ -169,7 +173,7 @@ def landing():
         proj_json = json.dumps(proj)
         landing_list.append(proj_json)
 
-    print("🏳️‍🌈 LANDING LIST ", landing_list)
+    landing_list.reverse()
     response = make_response(json.dumps({"data": landing_list}))
     return response
 
@@ -198,14 +202,29 @@ def getFileStr(block):
     _type = block['type']
 
     # ![Tux, the Linux mascot](/assets/images/tux.png)
-    url = block[_type]['file']["url"]
-    caption = ""
-    if block[_type].get("caption"):
-        caption =  block[_type].get("caption")[0]['text']['content']
-    
-    markdown_str = "![{}]({})".format(caption, url)
-    
-    return markdown_str
+    # internal upload file
+    if block[_type].get('file'):
+        url = block[_type]['file']["url"]
+        caption = ""
+        if block[_type].get("caption"):
+            caption =  block[_type].get("caption")[0]['text']['content']
+        
+        markdown_str = "![{}]({})".format(caption, url)
+        
+        return markdown_str
+
+     # external upload file
+    elif block[_type]['type'] == "external":
+        print(block[_type].keys())
+        url = block[_type]["external"]['url']
+        caption = ""
+        if block[_type].get("caption"):
+            caption =  block[_type].get("caption")[0]['text']['content']
+        
+        markdown_str = "![{}]({})".format(caption, url)
+        
+        return markdown_str
+    return "test"
 
 def getVimeoStr(block):
     _type = block['type']
@@ -224,6 +243,7 @@ def getMarkdownStrFromPageID(page_id):
 
         # add md formats for strings
         _type = block['type']
+        print("🍘", _type)
         if _type == "heading_1": markdown_str += "# "
         elif _type == "heading_2": markdown_str += "## "
         elif _type == "heading_3": markdown_str += "### "
@@ -234,7 +254,8 @@ def getMarkdownStrFromPageID(page_id):
             markdown_str += getTextStr(block)
 
         # [b] some sort of media (image, video etc)
-        elif block[_type].get('file'):
+        elif _type == "image":
+            print(block)
             markdown_str += getFileStr(block)
             
         # [c] some sort of video embed (prob vimeo link)

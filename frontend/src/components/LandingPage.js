@@ -18,7 +18,7 @@ const LandingPage = (props) => {
 
   return (
     <div className="landingPage">
-      <ProfileBox />
+      <ProfileBox baseURL={props.baseURL} />
       <ProjectBox baseURL={props.baseURL} />
       <a target="_blank" href="https://gossipsweb.net">
         <img

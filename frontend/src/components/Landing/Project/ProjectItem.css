@@ -46,7 +46,8 @@
 
 .more:hover {
   cursor: pointer;
-  background-color: yellow;
+  background-color: black;
+  color: white;
 }
 
 @media only screen and (max-width: 810px) {

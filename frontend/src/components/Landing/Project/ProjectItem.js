@@ -1,9 +1,6 @@
 import "./ProjectItem.css";
 
 const ProjectItem = (props) => {
-  console.log("💞", props.project["title"]);
-  console.log("😻", typeof props.project);
-
   return (
     <div className="projectItem">
       <div className="projectTitle">{props.project.title}</div>

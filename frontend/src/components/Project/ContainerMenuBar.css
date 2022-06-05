@@ -2,7 +2,7 @@
   border: 1px solid black;
   height: 40px;
   padding: 10px;
-  background-color: yellow;
+  background-color: rgb(87, 135, 255);
   position: inherit;
   max-width: 800px;
 }

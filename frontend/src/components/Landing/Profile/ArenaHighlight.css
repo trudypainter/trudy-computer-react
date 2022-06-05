@@ -12,11 +12,18 @@
 }
 
 .channelLink {
+  border: 1px solid black;
+  margin: auto;
+  width: 80%;
   text-decoration: none;
-  color: black;
-  padding: 10px;
-  padding-top: 10px;
+  /* color: black; */
+  padding: 7px 12px;
   margin-bottom: 10px;
+}
+
+.channelLink:hover {
+  color: white;
+  background-color: black;
 }
 
 .channel {
@@ -29,7 +36,8 @@
 }
 
 .channel:hover {
-  background-color: lightskyblue;
+  background-color: black;
+  color: rgb(255, 255, 255);
 }
 
 .channelList {
