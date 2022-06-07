@@ -4,7 +4,7 @@ from sqlalchemy.sql.sqltypes import Integer
 from flask_sqlalchemy import SQLAlchemy
 import json
 from urllib.parse import urlencode
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import markdown
 import os
 import requests
@@ -25,7 +25,7 @@ notion_database_id = "10e3696023bc490b8fbab03d03813d80"
 notion_headers = {
     "Authorization": "Bearer " + notion_token,
     "Content-Type": "application/json",
-    "Notion-Version": "2021-05-13"
+    "Notion-Version": "2022-02-22"
 }
 
 # 💞 get the list of slugs of pages
@@ -193,7 +193,7 @@ def getTextStr(block):
     markdown_str = ""
     _type = block['type']
     
-    for text_obj in block[_type]['text']:
+    for text_obj in block[_type]['rich_text']:
         # add link
         print(text_obj['plain_text'])
         
@@ -250,14 +250,13 @@ def getMarkdownStrFromPageID(page_id):
 
         # add md formats for strings
         _type = block['type']
-        print("🍘", _type)
         if _type == "heading_1": markdown_str += "# "
         elif _type == "heading_2": markdown_str += "## "
         elif _type == "heading_3": markdown_str += "### "
         elif _type == "bulleted_list_item": markdown_str += "* "
             
         # [a] some sort of text obj (heading, paragraph, etc)    
-        if block[_type].get('text'):
+        if _type in ['heading_1', 'heading_2', "heading_3", 'paragraph', 'bulleted_list_item']:
             markdown_str += getTextStr(block)
 
         # [b] some sort of media (image, video etc)
@@ -303,9 +302,41 @@ def index():
 def writeup():
     return send_file('projects/spotify-monster/FINAL_WRITEUP/final_writeup.html')
 
-@app.route('/email', methods=["GET"])
+@app.route('/emailresponse', methods=["POST", "GET"])
 def email():
-    return "email"
+    reqdict = request.args.to_dict()
+    name = "NAME: " + reqdict.get('name')
+    email = "EMAIL: " + reqdict.get('email')
+    breakfast = "BREAKFAST: " + reqdict.get('breakfast')
+    emojis = "EMOJIS: " + reqdict.get('emojis')
+    topics = "TOPICS: " + reqdict.get('topics')
+    links = "EXTRA: " + reqdict.get('extra')
+
+    date = "🟡" + str(datetime.now())
+    items = [date, name, email, breakfast, emojis, topics, links]
+
+    page_id = "a615c5c92e4043d699ca3a0c387bd666"
+    readUrl = f"https://api.notion.com/v1/blocks/" + page_id + "/children"
+
+    blocks = [{
+            "object": 'block',
+            "type": 'paragraph',
+            "paragraph": {
+            "rich_text": [
+                {
+                "type": 'text',
+                "text": {
+                    "content": content,
+                },
+                },
+            ],
+            },
+        } for content in items]
+
+    body = {'children': blocks}
+    res = requests.request("PATCH", readUrl, headers=notion_headers, data = json.dumps(body))
+
+    return app.send_static_file('index.html')
 
 @app.route('/resume', methods=["GET"])
 def resume():

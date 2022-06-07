@@ -1,0 +1,96 @@
+.emailPage {
+  margin-top: 0px;
+  padding-top: 0px;
+  background-color: white;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+.formContainer {
+  width: 80%;
+  margin: auto;
+  padding-top: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+
+  max-width: 800px;
+}
+
+.backButton {
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.intro {
+  margin: auto;
+  padding: 10px;
+  width: 90%;
+}
+
+.footer {
+  margin: auto;
+  padding: 30px 10px;
+  width: 90%;
+  text-align: center;
+}
+
+form {
+  margin: auto;
+  padding: 10px;
+  background-color: rgb(192, 214, 255);
+  width: 90%;
+}
+
+label {
+  margin: 10px;
+  padding-top: 20px;
+}
+
+input {
+  margin: 10px;
+  width: calc(100% - 20px);
+  color: gray;
+  height: 30px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+textarea {
+  margin: 10px;
+  width: calc(100% - 20px);
+  max-width: calc(100% - 20px);
+  color: gray;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  padding: 4px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.submitContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+}
+#submit {
+  width: 80px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  margin: auto;
+}
+#submit:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 5px white;
+}
+
+@media only screen and (max-width: 810px) {
+  /* For mobile phones: */
+  .formContainer {
+    width: 100%;
+  }
+}

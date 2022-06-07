@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/LandingPage";
 import ProjectPage from "./components/ProjectPage";
+import EmailPage from "./components/EmailPage";
+import EmailConfirmation from "./components/EmailConfirmation";
 
-const baseURL = "http://0.0.0.0:5000";
+const baseURL = "http://127.0.0.1:5000";
 // const baseURL = "";
 
 console.log("fetching project list");
@@ -17,6 +19,12 @@ fetch(baseURL + "/api/project_url_list")
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage baseURL={baseURL} />} />
+          <Route path="/email" element={<EmailPage baseURL={baseURL} />} />
+          <Route
+            path="/emailresponse"
+            element={<EmailConfirmation baseURL={baseURL} />}
+          />
+
           {response.data.map((url) => (
             <Route
               path={url}

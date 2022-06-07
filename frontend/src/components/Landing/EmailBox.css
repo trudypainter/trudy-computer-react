@@ -36,10 +36,8 @@
   box-shadow: 0px 0px 10px 5px #ff3030;
 }
 
-@media only screen and (max-width: 810px) {
-  /* For mobile phones: */
+/* @media only screen and (max-width: 810px) {
   .emailBox {
-    width: initial;
     margin: 10px;
   }
-}
+} */
