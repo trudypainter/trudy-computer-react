@@ -303,6 +303,10 @@ def index():
 def writeup():
     return send_file('projects/spotify-monster/FINAL_WRITEUP/final_writeup.html')
 
+@app.route('/email', methods=["GET"])
+def email():
+    return "email"
+
 @app.route('/resume', methods=["GET"])
 def resume():
     return send_file("TrudyPainterResume.pdf")
