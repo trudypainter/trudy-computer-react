@@ -4,18 +4,23 @@
   margin-left: auto;
   margin-right: auto;
 
-  padding: 0px;
+  padding: 0px 4px;
 
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 
   max-width: 800px;
+}
+
+.projectBox > div {
+  margin: 4px;
 }
 
 @media only screen and (max-width: 810px) {
   /* For mobile phones: */
   .projectBox {
     width: initial;
-    margin: 10px;
+    /* margin: 10px; */
   }
 }

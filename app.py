@@ -128,6 +128,8 @@ def landing():
     
     # gets a list of **pages** in the database
     results = data['results']
+    location_set = set()
+    topic_set = set()
     
     for result in results:
         proj = dict()
@@ -137,9 +139,10 @@ def landing():
         proj['title'] = title
         
         # [2] get the location of the project
-        loc_color = result['properties']['location']['select']['color']
-        location = result['properties']['location']['select']['name']
-        proj['location'] = location
+        location = result['properties']['location']['select']
+        loc_json = json.dumps(location)
+        location_set.add(loc_json)
+        proj['location'] = loc_json
         
         # [3] get the year of the project
         year = result['properties']['year']['rich_text'][0]['text']['content']
@@ -162,7 +165,11 @@ def landing():
 
         # [6] get the tags of the project
         tags = result['properties']['tags']['multi_select']
-        tag_list = [tag['name'] for tag in tags]
+        tag_list = []
+        for tag in tags: 
+            tag_json = json.dumps(tag)
+            topic_set.add(tag_json)
+            tag_list.append(tag_json)
         proj['tags'] = tag_list
         
         # [7] get the slug of the project
@@ -174,7 +181,7 @@ def landing():
         landing_list.append(proj_json)
 
     landing_list.reverse()
-    response = make_response(json.dumps({"data": landing_list}))
+    response = make_response(json.dumps({"data": landing_list, "locations":list(location_set), "topics":list(topic_set)}))
     return response
 
 # 💛 url list for the router

@@ -1,0 +1,45 @@
+.emailBox {
+  margin: auto;
+  padding: 0px;
+  margin-top: 20px;
+  border: 1px solid black;
+  background-color: white;
+
+  width: 300px;
+
+  text-align: center;
+
+  padding-bottom: 10px;
+}
+
+.emailContent {
+  padding: 20px 10px;
+}
+
+.yesContainer {
+  padding: 4px 10px 14px 10px;
+}
+
+.yesButton {
+  position: relative;
+  padding: 10px;
+
+  background-color: black;
+  color: white;
+
+  text-decoration: none;
+
+  border-radius: 4px;
+}
+
+.yesButton:hover {
+  box-shadow: 0px 0px 10px 5px #ff3030;
+}
+
+@media only screen and (max-width: 810px) {
+  /* For mobile phones: */
+  .emailBox {
+    width: initial;
+    margin: 10px;
+  }
+}

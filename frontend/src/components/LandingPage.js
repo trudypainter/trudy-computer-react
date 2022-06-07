@@ -1,6 +1,7 @@
 import "./LandingPage.css";
 import ProfileBox from "./Landing/ProfileBox";
 import ProjectBox from "./Landing/ProjectBox";
+import EmailBox from "./Landing/EmailBox";
 
 const LandingPage = (props) => {
   const bannerStyle = {
@@ -19,10 +20,11 @@ const LandingPage = (props) => {
   return (
     <div className="landingPage">
       <ProfileBox baseURL={props.baseURL} />
+      <EmailBox baseURL={props.baseURL} />
       <ProjectBox baseURL={props.baseURL} />
       <a target="_blank" href="https://gossipsweb.net">
         <img
-          src="https://gossipsweb.net/images/twwmwh-gray.jpg"
+          src="https://gossipsweb.net/images/twwmwh-lime.jpg"
           alt="This website was made with hands."
           style={bannerStyle}
         />

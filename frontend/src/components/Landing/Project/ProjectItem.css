@@ -32,7 +32,9 @@
   position: absolute;
   bottom: 14px;
   font-style: italic;
-  max-width: calc(100% - 20px - 100px);
+  width: calc(100% - 20px - 100px);
+
+  display: inline;
 }
 
 .more {
@@ -42,12 +44,14 @@
   padding: 8px;
   border: 1px solid black;
   color: black;
+  text-decoration: none;
 }
 
 .more:hover {
   cursor: pointer;
   background-color: black;
   color: white;
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 810px) {

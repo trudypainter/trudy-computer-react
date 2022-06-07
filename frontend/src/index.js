@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import ProjectPage from "./components/ProjectPage";
 
-// const baseURL = "http://127.0.0.1:5000/";
-const baseURL = "";
+const baseURL = "http://0.0.0.0:5000";
+// const baseURL = "";
 
 console.log("fetching project list");
 fetch(baseURL + "/api/project_url_list")

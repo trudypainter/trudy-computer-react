@@ -1,4 +1,5 @@
 import "./ProjectItem.css";
+import TagButton from "./TagButton";
 
 const ProjectItem = (props) => {
   return (
@@ -15,14 +16,14 @@ const ProjectItem = (props) => {
 
       <div className="tags">
         {props.project.tags != undefined &&
-          props.project.tags.map((tag) => <span>{tag} </span>)}
+          props.project.tags.map((tag) => (
+            <TagButton tag={tag} color={"blue"}></TagButton>
+          ))}
       </div>
-      <div
-        onClick={() => window.open(props.project.url, "_self")}
-        className="more"
-      >
+
+      <a href={props.project.url} className="more">
         MORE +
-      </div>
+      </a>
     </div>
   );
 };
