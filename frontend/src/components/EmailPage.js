@@ -35,15 +35,6 @@ const EmailPage = (props) => {
             required
           ></input>
           <br></br>
-          <label>What you ate for breakfast</label>
-          <input
-            type="text"
-            name="breakfast"
-            enterkeyhint="next"
-            placeholder="this is important"
-            required
-          ></input>
-          <br></br>
           <label>Top 3 emojis at the moment</label>
           <input
             type="text"
