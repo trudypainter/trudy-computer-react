@@ -319,13 +319,12 @@ def email():
     reqdict = request.args.to_dict()
     name = "NAME: " + reqdict.get('name')
     email = "EMAIL: " + reqdict.get('email')
-    breakfast = "BREAKFAST: " + reqdict.get('breakfast')
     emojis = "EMOJIS: " + reqdict.get('emojis')
     topics = "TOPICS: " + reqdict.get('topics')
     links = "EXTRA: " + reqdict.get('extra')
 
     date = "🟡" + str(datetime.now())
-    items = [date, name, email, breakfast, emojis, topics, links]
+    items = [date, name, email, emojis, topics, links]
 
     page_id = "a615c5c92e4043d699ca3a0c387bd666"
     readUrl = f"https://api.notion.com/v1/blocks/" + page_id + "/children"
