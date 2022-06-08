@@ -7,7 +7,7 @@ import ProjectPage from "./components/ProjectPage";
 import EmailPage from "./components/EmailPage";
 import EmailConfirmation from "./components/EmailConfirmation";
 
-// const baseURL = "http://127.0.0.1:5000";
+// const baseURL = "http://0.0.0.0:5000";
 const baseURL = "";
 
 console.log("fetching project list");

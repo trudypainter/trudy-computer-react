@@ -13,6 +13,11 @@
   max-width: 800px;
 }
 
+.projectBox::after {
+  content: "";
+  flex: auto;
+}
+
 .projectBox > div {
   margin: 4px;
 }

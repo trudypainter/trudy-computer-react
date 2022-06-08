@@ -7,7 +7,7 @@ const FilterBar = (props) => {
   console.log("✅ selected projects", props.selectedProjects);
   const handleScroll = () => {
     const filterBar = document.getElementById("filterBar");
-    const position = filterBar.offsetTop - 8;
+    const position = filterBar.offsetTop - 25;
     if (window.pageYOffset >= position) {
       filterBar.classList.add("sticky");
     } else {

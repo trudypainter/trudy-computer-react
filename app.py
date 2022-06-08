@@ -122,8 +122,19 @@ def landing():
     # list to be returned
     landing_list = []
 
+    body = {
+        
+            "sorts": [
+        {
+            "property": 'priority',
+            "direction": 'ascending',
+        },
+        ],
+    
+    }
+
     readUrl = f"https://api.notion.com/v1/databases/{notion_database_id}/query"
-    res = requests.request("POST", readUrl, headers=notion_headers)
+    res = requests.request("POST", readUrl, headers=notion_headers, data = json.dumps(body))
     data = res.json()
     
     # gets a list of **pages** in the database
