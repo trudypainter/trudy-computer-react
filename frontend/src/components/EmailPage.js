@@ -19,6 +19,7 @@ const EmailPage = (props) => {
           <br></br>
           <input
             type="text"
+            enterkeyhint="next"
             id="email"
             name="name"
             placeholder="and title if you please"
@@ -26,6 +27,7 @@ const EmailPage = (props) => {
           <label>Email</label> <br></br>
           <input
             type="text"
+            enterkeyhint="next"
             id="email"
             name="email"
             placeholder="or else it flies into oblivion 🌫😶‍🌫️📨"
@@ -35,12 +37,14 @@ const EmailPage = (props) => {
           <input
             type="text"
             name="breakfast"
+            enterkeyhint="next"
             placeholder="this is important"
           ></input>
           <br></br>
           <label>Top 3 emojis at the moment</label>
           <input
             type="text"
+            enterkeyhint="next"
             name="emojis"
             placeholder="mine are 💿👒🍋"
           ></input>
@@ -48,6 +52,7 @@ const EmailPage = (props) => {
           <label>What has been on your brain </label>
           <textarea
             name="topics"
+            enterkeyhint="next"
             rows="5"
             placeholder="some things for me... old people's walking outfits. web surfing. dogs. music listened to (i'm playing rosalia as i write this). favorite public parks. youtube rabbit holes. best childhood birthday party. "
           ></textarea>
