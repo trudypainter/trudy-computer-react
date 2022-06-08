@@ -181,6 +181,7 @@ def landing():
         landing_list.append(proj_json)
 
     landing_list.reverse()
+    print("🟡", landing_list)
     response = make_response(json.dumps({"data": landing_list, "locations":list(location_set), "topics":list(topic_set)}))
     return response
 
