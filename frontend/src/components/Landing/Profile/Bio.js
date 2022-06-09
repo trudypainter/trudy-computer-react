@@ -13,8 +13,10 @@ const Bio = () => {
           target="_blank"
           href="https://www.media.mit.edu/groups/viral-communications/overview/"
         >
-          Viral Communications Group.
+          Viral Communications Group
         </a>
+        , developing tools to get humans closer to the feedback loop of machine
+        learning + artificial intelligence.
       </p>
       <p>
         I like building web systems from scratch, phone photography, archives,
