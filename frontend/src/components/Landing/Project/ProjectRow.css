@@ -4,6 +4,12 @@
   border: 1px solid black;
 }
 
+.projectTitle {
+  font-family: Arial;
+  font-size: 18px;
+  padding-bottom: 4px;
+}
+
 .projectRow {
   padding: 10px 10px;
   margin-left: -1px;

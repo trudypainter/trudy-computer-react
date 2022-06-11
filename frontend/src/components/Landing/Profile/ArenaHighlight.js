@@ -3,7 +3,7 @@ import "./ArenaHighlight.css";
 const ArenaHighlight = () => {
   return (
     <div className="arenaHighlight">
-      <div className="arenaTitle">Are.na Channels to Check Out</div>
+      <div className="arenaTitle">My Are.na Channels to Check Out</div>
       <div className="channelList">
         <a
           className="channelLink"
