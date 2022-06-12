@@ -25,7 +25,7 @@ const FilterBar = (props) => {
   return (
     <div id="filterBar" className="filterBar">
       <div className="tagsBar">
-        <div className="locationTitle">Locations:</div>
+        <div className="locationTitle">Type:</div>
 
         {props.locations != undefined &&
           props.locations.map((tag) => (
