@@ -16,7 +16,7 @@ const Bio = () => {
           Viral Communications Group
         </a>
         , developing tools to get humans closer to the feedback loop of machine
-        learning + artificial intelligence. To learn more about my latest
+        learning and artificial intelligence. To learn more about my latest
         projects, take a look at{" "}
         <a target="_blank" href="/latent-lab">
           Latent Lab
