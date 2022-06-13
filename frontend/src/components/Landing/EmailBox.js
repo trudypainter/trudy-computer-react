@@ -7,7 +7,7 @@ const EmailBox = (props) => {
       <div className="yesContainer">
         {" "}
         <a className="yesButton" href="/email">
-          Yes!
+          Yes
         </a>
       </div>
     </div>
