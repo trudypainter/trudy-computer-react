@@ -3,6 +3,7 @@ from flask.helpers import make_response, send_file
 from sqlalchemy.sql.sqltypes import Integer
 from flask_sqlalchemy import SQLAlchemy
 import json
+from dotenv import load_dotenv
 from urllib.parse import urlencode
 from datetime import datetime, timedelta, date
 import markdown
@@ -11,8 +12,10 @@ import requests
 import re
 from flask_cors import CORS
 
+load_dotenv()
+
 app = Flask(__name__, static_folder='frontend/build', static_url_path='/')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://jsuwurmosbaick:214e623fa4b05d9ae3dcd826ab63af15a6663c85e68699ef447a57fb53b7f800@ec2-18-234-17-166.compute-1.amazonaws.com:5432/db212f5dgbqvol'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["SQL_DB"]
 CORS(app)
 
 db = SQLAlchemy(app)
@@ -20,7 +23,7 @@ db = SQLAlchemy(app)
 ########################
 #  ⭐️ NOTION CONFIG    #
 ########################
-notion_token = "secret_PgUtwJiQQQab5NJzbL0uw4RiTGf1NfRvy9jlOyKAj3W"
+notion_token = os.environ["NOTION_TOKEN"]
 notion_database_id = "10e3696023bc490b8fbab03d03813d80"
 notion_headers = {
     "Authorization": "Bearer " + notion_token,
@@ -82,7 +85,7 @@ def get_num_songs():
 
 # 🧡 for the scroller
 def get_current_weather():
-    api_key = "3fc9710dd566f607ef8248e37e80416a"
+    api_key = os.environ['WEATHER_KEY']
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     city_name = "boston"
     
@@ -355,6 +358,16 @@ def resume():
 
 @app.errorhandler(404)
 def not_found(e):
+    return app.send_static_file('index.html')
+
+
+##################
+#  ⭐️ SPOTIFY   #
+##################
+
+@app.route('/callback', methods=["GET"])
+def callback():
+    print("test")
     return app.send_static_file('index.html')
 
 if __name__ == '__main__':

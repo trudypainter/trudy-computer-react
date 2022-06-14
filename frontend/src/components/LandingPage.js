@@ -2,6 +2,7 @@ import "./LandingPage.css";
 import ProfileBox from "./Landing/ProfileBox";
 import ProjectBox from "./Landing/ProjectBox";
 import EmailBox from "./Landing/EmailBox";
+import MysteryBox from "./Landing/MysteryBox";
 
 const LandingPage = (props) => {
   const bannerStyle = {
@@ -20,7 +21,7 @@ const LandingPage = (props) => {
   return (
     <div className="landingPage">
       <ProfileBox baseURL={props.baseURL} />
-      <EmailBox baseURL={props.baseURL} />
+      <MysteryBox baseURL={props.baseURL} />
       <ProjectBox baseURL={props.baseURL} />
       <a target="_blank" href="https://gossipsweb.net">
         <img
