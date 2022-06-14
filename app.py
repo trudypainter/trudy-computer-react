@@ -360,16 +360,6 @@ def resume():
 def not_found(e):
     return app.send_static_file('index.html')
 
-
-##################
-#  ⭐️ SPOTIFY   #
-##################
-
-@app.route('/callback', methods=["GET"])
-def callback():
-    print("test")
-    return app.send_static_file('index.html')
-
 if __name__ == '__main__':
   app.run(debug=True)
 

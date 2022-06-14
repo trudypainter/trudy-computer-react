@@ -7,9 +7,10 @@ import ProjectPage from "./components/ProjectPage";
 import EmailPage from "./components/EmailPage";
 import SpotifyPage from "./components/SpotifyPage";
 import EmailConfirmation from "./components/EmailConfirmation";
+import SpotifyResults from "./components/SpotifyResults";
 
-const baseURL = "http://0.0.0.0:5000";
-// const baseURL = "";
+// const baseURL = "http://0.0.0.0:5000";
+const baseURL = "";
 
 console.log("fetching project list");
 fetch(baseURL + "/api/project_url_list")
@@ -26,6 +27,10 @@ fetch(baseURL + "/api/project_url_list")
             element={<EmailConfirmation baseURL={baseURL} />}
           />
           <Route path="/connect" element={<SpotifyPage baseURL={baseURL} />} />
+          <Route
+            path="/results"
+            element={<SpotifyResults baseURL={baseURL} />}
+          />
 
           {response.data.map((url) => (
             <Route

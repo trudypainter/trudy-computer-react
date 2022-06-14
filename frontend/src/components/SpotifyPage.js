@@ -7,9 +7,11 @@ const SpotifyPage = (props) => {
   return (
     <div className="spotifyPage">
       <div className="spotifyText">
-        Click below to see what Spotify songs and artists we both listen to...
+        Click below to see what Spotify artists we both listen to.
         <div className="spotifyContainer">
-          <a className="spotifySubmit">Let's go</a>
+          <a href="/results" className="spotifySubmit">
+            Let's go
+          </a>
         </div>
         <div className="spotifyContainer">
           <a href="/" className="backButton">

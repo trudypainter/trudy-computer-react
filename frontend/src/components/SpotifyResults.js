@@ -1,31 +1,29 @@
 import "./SpotifyResults.css";
+import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const SpotifyResults = (props) => {
-  useEffect(() => {
-    const script = document.createElement("script");
-
-    script.src = "https://";
-    script.async = true;
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <div className="spotifyPage">
+      <Helmet>
+        <script
+          src={process.env.PUBLIC_URL + "/spotifyAuth.js"}
+          type="text/javascript"
+          defer
+        ></script>
+      </Helmet>
       <div className="spotifyText">
-        <h1 class="text-salmon">Spotify Implicit Grant Template</h1>
-        <h3>
-          This app uses implicit grant authorization flow to authenticate users
-          and get user data.
-        </h3>
-        <p>
-          Here are your top artists on Spotify:
-          <ol id="top-artists"></ol>
-        </p>
+        <div>
+          We both listen to
+          <div className="top-artists" id="top-artists">
+            Loading...
+          </div>
+        </div>
+        <div className="buttonContainer">
+          <a href="/" className="backButton">
+            HOME
+          </a>
+        </div>
       </div>
     </div>
   );

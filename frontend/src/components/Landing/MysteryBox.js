@@ -5,7 +5,7 @@ const MysteryBox = (props) => {
     <div className="mysteryBox">
       <div className="mysteryContaner">
         <a className="mysteryLink" href="/connect">
-          connect
+          mystery
         </a>
       </div>
     </div>

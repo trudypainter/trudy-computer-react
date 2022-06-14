@@ -1,0 +1,42 @@
+.top-artists {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10px;
+}
+.results {
+  margin: 2px 4px;
+  background-color: lightgreen;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.buttonContainer {
+  margin-top: 30px;
+}
+
+/* .backButton {
+  background-color: black;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 200px;
+  padding: 15px;
+
+  border-radius: 4px;
+  margin: auto;
+
+  margin-top: 80px;
+} */
+
+.backButtonResults {
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+/* .backButton:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+} */
