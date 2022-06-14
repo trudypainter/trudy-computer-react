@@ -5596,7 +5596,7 @@ const authEndpoint = "https://accounts.spotify.com/authorize";
 const clientId = "eccc5903792f4c2d917b6192e55db263";
 // const redirectUri = "http://0.0.0.0:5000/results";
 // const redirectUri = "http://127.0.0.1:3000/results";
-const redirectUri = "http:www.trudy.computer/results";
+const redirectUri = "http://www.trudy.computer/results";
 const scopes = ["user-top-read"];
 
 // If there is no token, redirect to Spotify authorization
