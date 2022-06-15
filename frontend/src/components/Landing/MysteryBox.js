@@ -4,7 +4,7 @@ const MysteryBox = (props) => {
   return (
     <div className="mysteryBox">
       <div className="mysteryContaner">
-        <a className="mysteryLink" href="/connect">
+        <a className="mysteryLink" href="/mystery">
           mystery
         </a>
       </div>

@@ -26,7 +26,7 @@ fetch(baseURL + "/api/project_url_list")
             path="/emailresponse"
             element={<EmailConfirmation baseURL={baseURL} />}
           />
-          <Route path="/connect" element={<SpotifyPage baseURL={baseURL} />} />
+          <Route path="/mystery" element={<SpotifyPage baseURL={baseURL} />} />
           <Route
             path="/results"
             element={<SpotifyResults baseURL={baseURL} />}
