@@ -22,7 +22,7 @@ the larger your monster will grow.
 
 # 🟡 System Design
 
-![General Overview](images/overview.jpeg)
+![General Overview](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/overview.jpeg)
 
 ## Monster Design
 
@@ -61,22 +61,22 @@ So, after a user listens to 100 songs, they earn an extra pixel of height.
 
 After listening to 500 songs in a certain genre, a user can unlock a monster accessory for that genre.
 
-* Pop: microphone
+* Pop: microphone 
 * Country: cowboy hat
 - Rap: sneakers
 - Instrumental: glasses
 - Tecnho: headphones
 - Rock/Alt: guitar
 
-![Monster with all accessories](images/example_trophies.jpeg)
+![Monster with all accessories](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/example_trophies.jpeg)
 
-![Monster Skeleton Outline](images/monsteroverview.jpeg)
+![Monster Skeleton Outline](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/monsteroverview.jpeg)
 
 ## Web Interface
 
 See the web interface <a href=http://608dev-2.net/sandbox/sc/team01/web/me.py?user=trudypaintet">here.</a>
 
-![Example user page](images/web_example.jpeg)
+![Example user page](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/web_example.jpeg)
 
 There are three main components to the web interface. The "me" page, the "friends" page and the "all users" page. From the "all users" page, you can see all the users and click on their page. Once on their page, you are still looking at their page from your viewpoint, so the site will tell you if you are friends with the user or not.
 
@@ -84,7 +84,7 @@ If you are not friends, there will be a button to become friends. You can't see 
 
 If you are friends, you will be able to see the time you have been friends since, compatibility score with them, their listening trophies, recent listening, top artists, and recommended tracks taking in both of your listening into account. The trophy badges were made on Illustrator. The compatibility and recommender algorithms are described more below.
 
-![All trophy badges possible.](images/trophies.jpeg)
+![All trophy badges possible.](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/trophies.jpeg)
 
 
 You will see that the "friends" page looks exactly like the "all users" but only displays your friends.
@@ -105,7 +105,7 @@ First, we obtain the recent songs for both users from the spotify db. Then, we i
 
 The second half of the score comes from a cosine similarity of the audio features. Finally, the whole score is passed through a sigmoid function shown below to make differences in scores more stark.
 
-![Compatibility sigmoid function weighting](images/sigmoid.jpeg)
+![Compatibility sigmoid function weighting](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/sigmoid.jpeg)
 
 
 
@@ -123,7 +123,7 @@ The user can press the buttons, physically tilt the breadboard, and speak comman
 
 A state machine diagram and full description are below:
 
-![User Interface State Machine Diagram](images/userstatediagram.jpeg)
+![User Interface State Machine Diagram](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/userstatediagram.jpeg)
 
 Monster State Machine:
 * **MONST** (short for monster) is the base state. In this state, the monster appears still on the screen and the RGB LED is a solid color matching that of the monster. The monster accepts button and angle inputs in this state:
@@ -187,13 +187,13 @@ Therefore, we have implemented a scanning period where users check the database 
 * Breadboard
 * 2 Square Button Switches
 
-![ESP32 Pin Setup](images/pinsetup.jpeg)
+![ESP32 Pin Setup](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/pinsetup.jpeg)
 
 # 🔵 Python Scripts and APIs
 
 ## Spotify Authorization and API Data Flow
 
-![Spotify Auth Flow](images/auth_flow.jpeg)
+![Spotify Auth Flow](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/auth_flow.jpeg)
 
 1. User visits authorize.py (http://608dev-2.net/sandbox/sc/team01/authorize.py)
 
@@ -257,7 +257,7 @@ ret = {
 }
 ~~~~
 
-![ESP Listening Stats Page](images/esp_stats.jpeg)
+![ESP Listening Stats Page](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/esp_stats.jpeg)
 
 # 🟢 SQL Tables
 
@@ -265,7 +265,7 @@ We have 3 main SQL tables in the "spotify.db" database.
 
 ## Table user_tokens
 
-![User Token Table](images/token_table.jpeg)
+![User Token Table](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/token_table.jpeg)
 
 This table holds the refresh tokens for each user that can be exchanged for access tokens for Spotify API calls. This 
 table is NOT publically accessible for security reasons.
@@ -273,14 +273,14 @@ table is NOT publically accessible for security reasons.
 
 ## Table listening_history
 
-![Listening History Table](images/listening_history.jpeg)
+![Listening History Table](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/listening_history.jpeg)
 
 This table holds the main listening history data for our project. Every song we have listened to since 
 we started collecting data is in this table. This table is updated every 30 minutes through a cron job.
 
 ## Table user_data
 
-![User Data Table](images/stats_table.jpeg)
+![User Data Table](https://raw.githubusercontent.com/trudypainter/trudy-computer-react/main/projects/spotify-monster/FINAL_WRITEUP/images/stats_table.jpeg)
 
 This table holds statistics about every user's listening history. This is also updated every 30 minutes 
 through the cron job.
