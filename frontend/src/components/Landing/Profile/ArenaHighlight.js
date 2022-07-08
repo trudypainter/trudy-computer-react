@@ -8,7 +8,7 @@ const ArenaHighlight = () => {
         <a
           className="channelLink"
           target="blank"
-          href="https://www.are.na/trudy-painter/things-i-like-po-qx_gzvgo"
+          href="https://www.are.na/trudy-painter/things-i-like-eruhck1o7r0"
         >
           {" "}
           things i like🧚‍♀️🧦
@@ -16,7 +16,7 @@ const ArenaHighlight = () => {
         <a
           className="channelLink"
           target="blank"
-          href="https://www.are.na/trudy-painter/future-archives-5r6djwjpaj4"
+          href="https://www.are.na/trudy-painter/future-archives-8xltbdet6ck"
         >
           {" "}
           future archives 📚
@@ -24,7 +24,7 @@ const ArenaHighlight = () => {
         <a
           className="channelLink"
           target="blank"
-          href="https://www.are.na/trudy-painter/cool-websites-76fmswj_ug8"
+          href="https://www.are.na/trudy-painter/cool-websites-yj6tfjbuhp8"
         >
           {" "}
           cool websites🕹
