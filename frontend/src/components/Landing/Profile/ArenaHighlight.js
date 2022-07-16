@@ -24,10 +24,10 @@ const ArenaHighlight = () => {
         <a
           className="channelLink"
           target="blank"
-          href="https://www.are.na/trudy-painter/cool-websites-yj6tfjbuhp8"
+          href="https://www.are.na/trudy-painter/information-trails"
         >
           {" "}
-          cool websites🕹
+          information trails 🗺
         </a>
         <a
           className="channelLink"
