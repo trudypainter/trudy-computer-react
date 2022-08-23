@@ -4,11 +4,11 @@ const Bio = () => {
   return (
     <div className="bio">
       <p>
-        Student at MIT double majoring in computer science and comparative media
-        studies.
+        I'm a senior at MIT double majoring in computer science and comparative
+        media studies.
       </p>
       <p>
-        Researcher at the MIT Media Lab with the{" "}
+        I'm also a researcher at the MIT Media Lab with the{" "}
         <a
           target="_blank"
           href="https://www.media.mit.edu/groups/viral-communications/overview/"

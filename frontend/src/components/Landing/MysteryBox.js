@@ -4,8 +4,8 @@ const MysteryBox = (props) => {
   return (
     <div className="mysteryBox">
       <div className="mysteryContaner">
-        <a className="mysteryLink" href="/mystery">
-          mystery
+        <a className="mysteryLink" href="https://container-space.co/">
+          Container Space is my technology studio
         </a>
       </div>
     </div>
